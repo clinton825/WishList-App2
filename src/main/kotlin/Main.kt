@@ -1,7 +1,9 @@
+import mu.KotlinLogging
 import utils.ScannerInput
 import java.lang.System.exit
 
 
+private val logger = KotlinLogging.logger {}
 
 
 fun main(args: Array<String>) {
@@ -43,19 +45,23 @@ fun mainMenu() : Int {
 
 
 fun addWishList() {
-    println("You chose Add WishList")
+    logger.info { "addWishList() function invoked" }
+
 }
 
 fun listWishList() {
-    println("You chose List WishLists")
+    logger.info { "listWishLists() function invoked" }
+
 }
 
 fun updateWishList() {
-    println("You chose Update WishList")
+    logger.info { "upadteWlishList() function invoked" }
+
 }
 
 fun deleteWishList() {
-    println("You chose Delete WishList")
+    logger.info { "deleteWishList() function invoked" }
+
 }
 
 fun exitApp() {

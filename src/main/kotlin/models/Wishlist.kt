@@ -1,12 +1,11 @@
 package models
 
-import java.util.Date
-
 data class Wishlist(
     val wishlistName: String,
-    val wishlistDate: Date,
+    val wishlistDate: Double,
     val wishlistUserName: String,
     val wishlistCategory: String,
-    val wishlistPriority: String
+    val wishlistPriority: Int,
+    val b: Boolean
 ) {
 }

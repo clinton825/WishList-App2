@@ -19,4 +19,16 @@ class wishlistAPI {
             listOfWishlists
         }
     }
+fun numberOfWishlists(): Int{
+    return wishlists.size
+}
+fun findWishlist(index:Int):Wishlist? {
+    return if (isValidListIndex(index,wishlists)){
+        wishlists[index]
+    }else null
+}
+    // utility method to determine if an index is vaild in a list
+    fun isValidListIndex(index: Int,list: List<Any>): Boolean {
+        return (index>= 0 && index < list.size)
+    }
 }

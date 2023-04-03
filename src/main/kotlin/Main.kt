@@ -2,7 +2,6 @@ import controllers.wishlistAPI
 import models.Wishlist
 import mu.KotlinLogging
 import utils.ScannerInput
-import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import java.lang.System.exit
@@ -52,11 +51,12 @@ fun mainMenu() : Int {
 fun addWishList() {
     //logger.info { "addWishList() function invoked" }
 val wishlistName = readNextLine("Enter a Name for the WishList: ")
-    val wishlistDate = readNextDouble("Enter the date the wishlist was created: ")
+    val wishlistDate = readNextLine("Enter the date the wishlist was created: ")
     val wishlistUserName = readNextLine("Enter the Name of the person whom the wishlist belongs to): ")
     val wishlistPriority = readNextInt("Enter a priority (1-low,2,3,4,5-high): ")
     val wishlistCategory = readNextLine("Enter a category for the wishlist: ")
-    val isAdded = wishlistAPI.add(Wishlist(wishlistName,wishlistDate,wishlistUserName,wishlistCategory, wishlistPriority,false))
+    val isAdded = wishlistAPI.add(Wishlist(wishlistName,wishlistDate,wishlistUserName,wishlistCategory,wishlistPriority,false))
+
 
     if (isAdded){
         println("Added Successfully")

@@ -32,7 +32,7 @@ fun runMenu() {
 
 
 fun mainMenu() : Int {
-    return ScannerInput.readNextInt(""" 
+    return readNextInt(""" 
          > ----------------------------------
          > |        SHOPPING WISHLIST APP   |
          > ----------------------------------
@@ -63,7 +63,7 @@ fun AddWishlist(): Wishlist? {
     val wishlistCategory = readNextLine("Enter a category for the wishlist: ")
     val wishlistDate = LocalDate.now()
 
-    return Wishlist(wishlistName, wishlistDate, wishlistUserName, wishlistCategory, wishlistPriority, false)
+    return Wishlist(wishlistName, wishlistDate, wishlistUserName, wishlistCategory, wishlistPriority, false, false)
 }
 
 fun addWishList() {

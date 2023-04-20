@@ -9,5 +9,6 @@ data class Wishlist(
     val wishlistUserName: String,
     val wishlistCategory: String,
     val wishlistPriority: Int,
-    val b: Any?
+    val b: Any?,
+    val isWishlistArchived: Boolean
 )

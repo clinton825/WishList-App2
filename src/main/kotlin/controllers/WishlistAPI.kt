@@ -1,6 +1,7 @@
 package controllers
 
 import models.Wishlist
+import javax.print.attribute.standard.JobPriority
 
 class wishlistAPI {
     private var wishlists = ArrayList<Wishlist>()
@@ -71,6 +72,38 @@ fun numberOfWishlists(): Int{
         return counter
 
      }
+
+    fun listWishlistBySelectedPrioriry(priority: Int): String{
+        return if(wishlists.isEmpty()) {
+            "No wishlists stored"
+        }else {
+            var listOfWishlists = ""
+            for (i in wishlists.indices){
+                if (wishlists[i].wishlistPriority == priority) {
+                    listOfWishlists +=
+                        """"$i: ${wishlists[i]}
+                            """.trimIndent()
+
+                }
+            }
+            if (listOfWishlists.equals("")){
+                "No wishlists with priority:$priority"
+            }else {
+                "{numberOfWishlistsByPriority(priority)} wishlists with priority $priority: $listOfWishlists"
+            }
+        }
+    }
+
+    fun numberOfWishlistsByPriority(priority: Int) : Int {
+        var counter = 0
+        for (wishlist in wishlists){
+            if (wishlist.wishlistPriority == priority){
+                counter++
+            }
+        }
+        return counter
+    }
+
 fun findWishlist(index:Int):Wishlist? {
     return if (isValidListIndex(index,wishlists)){
         wishlists[index]

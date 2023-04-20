@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -122,6 +123,44 @@ class WishlistAPITest {
             assertFalse(archiveWishlistsString.contains("wintertime"))
             assertFalse(archiveWishlistsString.contains("test app"))
         }
+    }
+    @Test
+    fun `listWishlistBySelectedPrioriry returns No Notes when ArrayList is empty`() {
+        assertEquals(0, emptyWishlists!!.numberOfWishlists())
+        assertTrue(emptyWishlists!!.listWishlistBySelectedPrioriry(1).lowercase().contains("no wishlists ")
+        )
+    }
+
+    @Test
+    fun `listWishlistBySelectedPrioriry returns no notes when no notes of that priority exist`() {
+        //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+        assertEquals(5, populatedWishlists!!.numberOfWishlists())
+        val priority2String = populatedWishlists!!.listWishlistBySelectedPrioriry(2).lowercase()
+        assertTrue(priority2String.contains("no wishlists"))
+        assertTrue(priority2String.contains("2"))
+    }
+
+    @Test
+    fun `listWishlistBySelectedPrioriry returns all notes that match that priority when notes of that priority exist`() {
+        assertEquals(5, populatedWishlists!!.numberOfWishlists())
+        val priority1String = populatedWishlists!!.listWishlistBySelectedPrioriry(5).lowercase()
+        assertFalse(priority1String.contains("1 wishlist"))
+        assertTrue(priority1String.contains("priority 5"))
+        assertTrue(priority1String.contains("christmas"))
+        assertFalse(priority1String.contains("summer vibe"))
+        assertFalse(priority1String.contains("wedding"))
+        assertFalse(priority1String.contains("wintertime"))
+        assertFalse(priority1String.contains("test app"))
+
+
+        val priority4String = populatedWishlists!!.listWishlistBySelectedPrioriry(9).lowercase(Locale.getDefault())
+        assertFalse(priority4String.contains("2 wishlist"))
+        assertFalse(priority4String.contains("priority 4"))
+        assertFalse(priority4String.contains("christmas"))
+        assertFalse(priority4String.contains("summer vibe"))
+        assertFalse(priority4String.contains("wedding"))
+        assertFalse(priority4String.contains("wintertime"))
+        assertTrue(priority4String.contains("test app"))
     }
 
 }

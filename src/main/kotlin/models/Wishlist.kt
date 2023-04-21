@@ -4,11 +4,10 @@ import java.time.LocalDate
 
 
 data class Wishlist(
-    val wishlistName: String,
-    val wishlistDate: LocalDate,
-    val wishlistUserName: String,
-    val wishlistCategory: String,
-    val wishlistPriority: Int,
-    val b: Any?,
-    val isWishlistArchived: Boolean
+    var wishlistName: String,
+    var wishlistDate: LocalDate,
+    var wishlistUserName: String,
+    var wishlistCategory: String,
+    var wishlistPriority: Int,
+    var isWishlistArchived: Boolean
 )

@@ -22,7 +22,7 @@ fun runMenu() {
             1 -> addWishList()
             2 -> listWishList()
             3 -> updateWishList()
-            4 -> deleteWishList()
+            4 -> deleteWishlist()
             0 -> exitApp()
             else -> println("Invalid option entered: ${option}")
 
@@ -95,10 +95,25 @@ fun updateWishList() {
 
 }
 
-fun deleteWishList() {
-    logger.info { "deleteWishList() function invoked" }
 
+//   logger.info { "deleteWishList() function invoked" }
+fun deleteWishlist(){
+    //logger.info { "deleteNotes() function invoked" }
+    listWishList()
+    if (wishlistAPI.numberOfWishlists() > 0) {
+        //only ask the user to choose the note to delete if notes exist
+        val indexToDelete = readNextInt("Enter the index of the wishlist to delete: ")
+        //pass the index of the note to NoteAPI for deleting and check for success.
+        val wishlistToDelete = wishlistAPI.deleteWishlist(indexToDelete)
+        if (wishlistToDelete != null) {
+            println("Delete Successful! Deleted wishlist: ${wishlistToDelete.wishlistName}")
+        } else {
+            println("Delete NOT Successful")
+        }
+    }
 }
+
+
 
 fun exitApp() {
     println("Exiting...bye")

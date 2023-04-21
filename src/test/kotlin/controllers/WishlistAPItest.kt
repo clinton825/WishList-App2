@@ -2,6 +2,7 @@ package controllers
 
 import models.Wishlist
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -161,6 +162,25 @@ class WishlistAPITest {
         assertFalse(priority4String.contains("wedding"))
         assertFalse(priority4String.contains("wintertime"))
         assertTrue(priority4String.contains("test app"))
+    }
+    @Nested
+    inner class DeleteWishLists {
+
+        @Test
+        fun `deleting a Wishlist that does not exist, returns null`() {
+            assertNull(emptyWishlists!!.deleteWishlist(0))
+            assertNull(populatedWishlists!!.deleteWishlist(-1))
+            assertNull(populatedWishlists!!.deleteWishlist(5))
+        }
+
+//        @Test
+//        fun `deleting a wishlist that exists delete and returns deleted object`() {
+//            assertEquals(5, populatedWishlists!!.numberOfWishlists())
+////            assertEquals(Test App, populatedWishlists!!.deleteWishlist(4))
+//            assertEquals(3, populatedWishlists!!.numberOfWishlists())
+//            assertEquals(summerVibe, populatedWishlists!!.deleteWishlist(0))
+//            assertEquals(3, populatedWishlists!!.numberOfWishlists())
+//        }
     }
 
 }

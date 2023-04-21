@@ -104,6 +104,13 @@ fun numberOfWishlists(): Int{
         return counter
     }
 
+
+    fun deleteWishlist(indexToDelete: Int):Wishlist? {
+        return if (isValidListIndex(indexToDelete, wishlists)){
+            wishlists.removeAt(indexToDelete)
+        }else null
+    }
+
 fun findWishlist(index:Int):Wishlist? {
     return if (isValidListIndex(index,wishlists)){
         wishlists[index]

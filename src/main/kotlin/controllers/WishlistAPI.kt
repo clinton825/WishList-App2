@@ -1,9 +1,13 @@
 package controllers
 
 import models.Wishlist
+import persistence.Serializer
 import javax.print.attribute.standard.JobPriority
+import kotlin.jvm.Throws
 
-class wishlistAPI {
+
+class WishlistAPI(serializerType: Serializer){
+    private var serializer: Serializer = serializerType
     private var wishlists = ArrayList<Wishlist>()
 
     fun add(wishlist: Wishlist): Boolean{
@@ -123,6 +127,17 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
     }
     return false
 }
+
+    @Throws(Exception::class)
+    fun load(){
+        wishlists = serializer.read() as ArrayList<Wishlist>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(wishlists)
+    }
+
 fun findWishlist(index:Int):Wishlist? {
     return if (isValidListIndex(index,wishlists)){
         wishlists[index]
@@ -133,7 +148,7 @@ fun findWishlist(index:Int):Wishlist? {
         return (index>= 0 && index < list.size)
     }
     fun isValidIndex(index: Int) :Boolean{
-        return isValidListIndex(index, wishlists);
+        return isValidListIndex(index, wishlists)
     }
 
 

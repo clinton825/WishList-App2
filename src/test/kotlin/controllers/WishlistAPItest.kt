@@ -99,7 +99,7 @@ class WishlistAPITest {
         @Test
         fun  `listActiveWishlists returns active wishlists when Arraylist has active wishlists stored`() {
 
-            assertEquals(2,populatedWishlists!!.numberOfActiveWishlits())
+            assertEquals(3,populatedWishlists!!.numberOfActiveWishlits())
             val activeWishlistsString = populatedWishlists!!.listActiveWishlists().lowercase()
             assertFalse(activeWishlistsString.contains("christmas"))
             assertFalse(activeWishlistsString.contains("summer vibe"))
@@ -327,7 +327,7 @@ class WishlistAPITest {
 
         @Test
         fun numberOfActiveWishlistsCalculatedCorrectly() {
-            assertEquals(2, populatedWishlists!!.numberOfActiveWishlits())
+            assertEquals(3, populatedWishlists!!.numberOfActiveWishlits())
             assertEquals(0, emptyWishlists!!.numberOfActiveWishlits())
         }
 

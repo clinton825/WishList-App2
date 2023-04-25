@@ -46,16 +46,10 @@ fun numberOfWishlists(): Int{
     return wishlists.size
 }
 
-    fun numberOfArchivedWishlists(): Int = wishlists.count {
-        wishlist: Wishlist -> wishlist.isWishlistArchived }
+    fun numberOfArchivedWishlists(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
 
-     fun numberOfActiveWishlits(): Int {
-         return wishlists.stream()
-             .filter { wishlist: Wishlist -> !wishlist.isWishlistArchived }
-             .count()
-             .toInt()
-     }
 
+    fun numberOfActiveWishlits(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
 
     fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
 

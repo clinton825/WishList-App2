@@ -312,5 +312,36 @@ class WishlistAPITest {
         }
     }
 
+    @Nested
+    inner class CountingMethods {
+
+        @Test
+        fun numberOfWishlistsCalculatedCorrectly() {
+            assertEquals(5, populatedWishlists!!.numberOfWishlists())
+            assertEquals(0, emptyWishlists!!.numberOfWishlists())
+        }
+
+        @Test
+        fun numberOfArchivedWishlistCalculatedCorrectly() {
+            assertEquals(3, populatedWishlists!!.numberOfArchivedWishlists())
+            assertEquals(0, emptyWishlists!!.numberOfArchivedWishlists())
+        }
+
+        @Test
+        fun numberOfActiveWishlistsCalculatedCorrectly() {
+            assertEquals(2, populatedWishlists!!.numberOfActiveWishlits())
+            assertEquals(0, emptyWishlists!!.numberOfActiveWishlits())
+        }
+
+        @Test
+        fun numberOfWishlistsByPriorityCalculatedCorrectly() {
+            assertEquals(0, populatedWishlists!!.numberOfWishlistsByPriority(1))
+            assertEquals(0, populatedWishlists!!.numberOfWishlistsByPriority(2))
+            assertEquals(0, populatedWishlists!!.numberOfWishlistsByPriority(3))
+            assertEquals(0, populatedWishlists!!.numberOfWishlistsByPriority(4))
+            assertEquals(1, populatedWishlists!!.numberOfWishlistsByPriority(5))
+            assertEquals(0, emptyWishlists!!.numberOfWishlistsByPriority(1))
+        }
+    }
 
 }

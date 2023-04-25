@@ -32,6 +32,7 @@ fun runMenu() {
             3 -> updateWishList()
             4 -> deleteWishlist()
             5 -> archiveWishlist()
+            6 -> searchWishlist()
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
@@ -39,6 +40,16 @@ fun runMenu() {
 
         }
     } while (true)
+}
+
+fun searchWishlist() {
+    val searchName = readNextLine("Enter the description to search by: ")
+    val searchResults = wishlistAPI.searchByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No wishlists found")
+    } else {
+        println(searchResults)
+    }
 }
 
 
@@ -70,6 +81,7 @@ fun mainMenu() : Int {
          > |   3) Update the WishList       |
          > |   4) Delete a WishList         |
          > |   5) Archive a  WishList       |
+         > |   6) Searching by a name       |
          > |   20)  Save Wishlists          |
          > |   21) Load Wishlists           |
          > ----------------------------------

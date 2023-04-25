@@ -91,6 +91,11 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
         return false
     }
 
+    fun searchByName (searchString : String) =
+        formatListString(
+            wishlists.filter { wishlist -> wishlist.wishlistName.contains(searchString, ignoreCase = true) })
+
+
     @Throws(Exception::class)
     fun load(){
         wishlists = serializer.read() as ArrayList<Wishlist>

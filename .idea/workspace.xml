@@ -7,8 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="refactoring with lambdas on listing number of">
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="refactoring with lambdas on listing methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
     </list>
@@ -43,7 +44,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="refactoring-lambda-list" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,7 +69,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactoring-lambda-list",
+    "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "16",
     "last_opened_file_path": "C:/Users/clinton/OneDrive - South East Technological University (Waterford Campus)/SECOND YEAR/notes-app-2.0",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -81,30 +82,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.WishlistAPITest">
-    <configuration name="ArchiveWislists.archiving an active wishlist that exists returns true and archives" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;controllers.WishlistAPITest$ArchiveWislists.archiving an active wishlist that exists returns true and archives&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
-      <method v="2" />
-    </configuration>
     <configuration name="CountingMethods.numberOfActiveWishlistsCalculatedCorrectly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -119,6 +96,30 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;controllers.WishlistAPITest$CountingMethods.numberOfActiveWishlistsCalculatedCorrectly&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="SearchMethods.search wishlists by name returns no wishlists when no wishlists with that name exist" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controllers.WishlistAPITest$SearchMethods.search wishlists by name returns no wishlists when no wishlists with that name exist&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -187,10 +188,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.WishlistAPITest" />
+        <item itemvalue="Gradle.SearchMethods.search wishlists by name returns no wishlists when no wishlists with that name exist" />
+        <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.WishlistAPITest.listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist" />
         <item itemvalue="Gradle.CountingMethods.numberOfActiveWishlistsCalculatedCorrectly" />
-        <item itemvalue="Kotlin.MainKt" />
-        <item itemvalue="Gradle.ArchiveWislists.archiving an active wishlist that exists returns true and archives" />
       </list>
     </recent_temporary>
   </component>
@@ -315,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682426482068</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="refactoring with lambdas on listing methods">
+      <created>1682434060556</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682434060556</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -390,7 +398,8 @@
     <MESSAGE value="Adding a new persistence called ymal" />
     <MESSAGE value="fixing the gitignore" />
     <MESSAGE value="refactoring with lambdas on listing number of" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring with lambdas on listing number of" />
+    <MESSAGE value="refactoring with lambdas on listing methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring with lambdas on listing methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

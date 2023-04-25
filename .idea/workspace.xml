@@ -7,9 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="refactoring with lambdas on listing methods">
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding in new feature and using lamdbas to refactor it">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
     </list>
@@ -44,7 +43,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="refactoring-lambda-list" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -69,7 +68,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "refactoring-numberOf",
     "jdk.selected.JAVA_MODULE": "16",
     "last_opened_file_path": "C:/Users/clinton/OneDrive - South East Technological University (Waterford Campus)/SECOND YEAR/notes-app-2.0",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -323,7 +322,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682434060556</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Adding in new feature and using lamdbas to refactor it">
+      <created>1682435765912</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682435765912</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -399,7 +405,8 @@
     <MESSAGE value="fixing the gitignore" />
     <MESSAGE value="refactoring with lambdas on listing number of" />
     <MESSAGE value="refactoring with lambdas on listing methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring with lambdas on listing methods" />
+    <MESSAGE value="Adding in new feature and using lamdbas to refactor it" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding in new feature and using lamdbas to refactor it" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

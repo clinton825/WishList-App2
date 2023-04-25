@@ -1,0 +1,17 @@
+Index: build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>31\r\n27
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab b/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab
+--- a/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab	(revision 76e6beb4d8369448c29cdd4456843f6a5c3a6452)
++++ b/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab	(date 1682408830542)
+@@ -1,2 +1,2 @@
+-31
+-27
+\ No newline at end of file
++4
++0
+\ No newline at end of file

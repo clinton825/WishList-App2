@@ -1,11 +1,8 @@
 package controllers
 
 import models.Wishlist
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
 import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
@@ -342,6 +339,43 @@ class WishlistAPITest {
             assertEquals(0, populatedWishlists!!.numberOfWishlistsByPriority(4))
             assertEquals(1, populatedWishlists!!.numberOfWishlistsByPriority(5))
             assertEquals(0, emptyWishlists!!.numberOfWishlistsByPriority(1))
+        }
+    }
+    @Nested
+    inner class SearchMethods {
+
+        @Test
+        fun `search wishlists by name returns no wishlists when no wishlists with that name exist`() {
+            // Searching a populated collection for a title that doesn't exist.
+            assertEquals(5, populatedWishlists!!.numberOfWishlists())
+            val searchResults = populatedWishlists!!.searchByName("no results expected")
+            assertTrue(searchResults.isEmpty())
+
+            // Searching an empty collection
+            assertEquals(0, emptyWishlists!!.numberOfWishlists())
+            assertTrue(emptyWishlists!!.searchByName("").isEmpty())
+        }
+
+        @Test
+        fun `search wishlists by name returns wishlists when wishlists with that name exist`() {
+            assertEquals(5, populatedWishlists!!.numberOfWishlists())
+
+            // Searching a populated collection for a full title that exists (case matches exactly)
+            var searchResults = populatedWishlists!!.searchByName("Life App")
+            assertFalse(searchResults.contains("Life App"))
+            Assertions.assertFalse(searchResults.contains("Test App"))
+
+            // Searching a populated collection for a partial name that exists (case matches exactly)
+            searchResults = populatedWishlists!!.searchByName("App")
+            assertFalse(searchResults.contains("Life App"))
+            assertTrue(searchResults.contains("Test App"))
+            Assertions.assertFalse(searchResults.contains("Summer - Vibe"))
+
+            // Searching a populated collection for a partial title that exists (case doesn't match)
+            searchResults = populatedWishlists!!.searchByName("aPp")
+            assertFalse(searchResults.contains("Life App"))
+            assertTrue(searchResults.contains("Test App"))
+            Assertions.assertFalse(searchResults.contains("Summer - Vibe"))
         }
     }
 

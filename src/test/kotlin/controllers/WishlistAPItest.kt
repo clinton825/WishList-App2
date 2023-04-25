@@ -113,7 +113,7 @@ class WishlistAPITest {
         @Test
         fun `listArchivedWishlists returns no archived wishlists when ArrayList is empty`(){
             assertEquals(0,emptyWishlists!!.numberOfArchivedWishlists())
-            assertTrue(emptyWishlists!!.listArchivedWishlists().lowercase().contains("no archived wishlist "))
+            assertTrue(emptyWishlists!!.listArchivedWishlists().lowercase().contains("no archived wishlists "))
 
         }
         @Test
@@ -131,7 +131,7 @@ class WishlistAPITest {
     @Test
     fun `listWishlistBySelectedPrioriry returns No Notes when ArrayList is empty`() {
         assertEquals(0, emptyWishlists!!.numberOfWishlists())
-        assertTrue(emptyWishlists!!.listWishlistBySelectedPrioriry(1).lowercase().contains("no wishlists ")
+        assertTrue(emptyWishlists!!.listWishlistsBySelectedPriority(1).lowercase().contains("no wishlists ")
         )
     }
 
@@ -139,16 +139,17 @@ class WishlistAPITest {
     fun `listWishlistBySelectedPrioriry returns no notes when no notes of that priority exist`() {
         //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
         assertEquals(5, populatedWishlists!!.numberOfWishlists())
-        val priority2String = populatedWishlists!!.listWishlistBySelectedPrioriry(2).lowercase()
+        val priority2String = populatedWishlists!!.listWishlistsBySelectedPriority(2).lowercase()
         assertTrue(priority2String.contains("no wishlists"))
         assertTrue(priority2String.contains("2"))
     }
 
     @Test
-    fun `listWishlistBySelectedPrioriry returns all notes that match that priority when notes of that priority exist`() {
+    fun `listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist`() {
         assertEquals(5, populatedWishlists!!.numberOfWishlists())
-        val priority1String = populatedWishlists!!.listWishlistBySelectedPrioriry(5).lowercase()
-        assertFalse(priority1String.contains("1 wishlist"))
+        val priority1String = populatedWishlists!!.listWishlistsBySelectedPriority(5).lowercase()
+        println(priority1String)
+        assertTrue(priority1String.contains("1 wishlist"))
         assertTrue(priority1String.contains("priority 5"))
         assertTrue(priority1String.contains("christmas"))
         assertFalse(priority1String.contains("summer vibe"))
@@ -157,7 +158,7 @@ class WishlistAPITest {
         assertFalse(priority1String.contains("test app"))
 
 
-        val priority4String = populatedWishlists!!.listWishlistBySelectedPrioriry(9).lowercase(Locale.getDefault())
+        val priority4String = populatedWishlists!!.listWishlistsBySelectedPriority(9).lowercase(Locale.getDefault())
         assertFalse(priority4String.contains("2 wishlist"))
         assertFalse(priority4String.contains("priority 4"))
         assertFalse(priority4String.contains("christmas"))

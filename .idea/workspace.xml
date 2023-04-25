@@ -7,8 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="fixing the gitignore">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="refactoring with lambdas on listing number of">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
@@ -69,7 +68,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactoring-numberOf",
+    "git-widget-placeholder": "refactoring-lambda-list",
     "jdk.selected.JAVA_MODULE": "16",
     "last_opened_file_path": "C:/Users/clinton/OneDrive - South East Technological University (Waterford Campus)/SECOND YEAR/notes-app-2.0",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -130,30 +129,6 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="PersistenceTests.saving and loading a loaded collection in JSON doesn't lose data" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;controllers.WishlistAPITest$PersistenceTests.saving and loading a loaded collection in JSON doesn't lose data&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
-      <method v="2" />
-    </configuration>
     <configuration name="WishlistAPITest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -178,6 +153,30 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
+    <configuration name="WishlistAPITest.listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controllers.WishlistAPITest.listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MainKt" />
       <module name="untitled.main" />
@@ -188,10 +187,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.WishlistAPITest" />
+        <item itemvalue="Gradle.WishlistAPITest.listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist" />
         <item itemvalue="Gradle.CountingMethods.numberOfActiveWishlistsCalculatedCorrectly" />
         <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.ArchiveWislists.archiving an active wishlist that exists returns true and archives" />
-        <item itemvalue="Gradle.PersistenceTests.saving and loading a loaded collection in JSON doesn't lose data" />
       </list>
     </recent_temporary>
   </component>
@@ -309,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682423166750</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="refactoring with lambdas on listing number of">
+      <created>1682426482068</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682426482068</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -383,7 +389,8 @@
     <MESSAGE value="adding in sub-menu for listing" />
     <MESSAGE value="Adding a new persistence called ymal" />
     <MESSAGE value="fixing the gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing the gitignore" />
+    <MESSAGE value="refactoring with lambdas on listing number of" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring with lambdas on listing number of" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

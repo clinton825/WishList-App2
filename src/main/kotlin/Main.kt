@@ -1,15 +1,18 @@
-import controllers.wishlistAPI
+import controllers.WishlistAPI
 import models.Wishlist
 import mu.KotlinLogging
-import utils.ScannerInput
+import persistence.Serializer
+import persistence.XMLSerializer
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import java.io.File
 import java.lang.System.exit
 import java.time.LocalDate
+import java.util.Date
 
 
 private val logger = KotlinLogging.logger {}
-private val wishlistAPI = wishlistAPI()
+private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
 
 fun main(args: Array<String>) {
     runMenu()
@@ -23,11 +26,29 @@ fun runMenu() {
             2 -> listWishList()
             3 -> updateWishList()
             4 -> deleteWishlist()
+            20 -> saveWishlist()
+            21 -> loadWishlist()
             0 -> exitApp()
             else -> println("Invalid option entered: ${option}")
 
         }
     } while (true)
+}
+
+fun loadWishlist() {
+    try {
+        wishlistAPI.load()
+    }catch (e: Exception){
+        System.err.println("Error reading  from file: $e")
+    }
+}
+
+fun saveWishlist() {
+    try {
+        wishlistAPI.store()
+    }catch (e: Exception){
+        System.err.println("Error reading  from file: $e")
+    }
 }
 
 
@@ -41,6 +62,8 @@ fun mainMenu() : Int {
          > |   2) List all WishLists        |
          > |   3) Update the WishList       |
          > |   4) Delete a WishList         |
+         > |   20)  Save Wishlists          |
+         > |   21) Load Wishlists           |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -49,7 +72,7 @@ fun mainMenu() : Int {
 }
 
 
-fun AddWishlist(): Wishlist? {
+fun addWishlistInput(): Wishlist? {
     val wishlistName = readNextLine("Enter a name for the wishlist: ")
     val wishlistUserName = readNextLine("Enter the name of the person whom the wishlist belongs to: ")
     val wishlistPriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
@@ -63,12 +86,12 @@ fun AddWishlist(): Wishlist? {
     val wishlistCategory = readNextLine("Enter a category for the wishlist: ")
     val wishlistDate = LocalDate.now()
 
-    return Wishlist(wishlistName, wishlistDate, wishlistUserName, wishlistCategory, wishlistPriority, false, false)
+    return Wishlist(wishlistName, wishlistDate, wishlistUserName, wishlistCategory, wishlistPriority, false)
 }
 
 fun addWishList() {
     // logger.info { "addWishList() function invoked" }
-    val wishlist = AddWishlist()
+    val wishlist = addWishlistInput()
 
     if (wishlist != null) {
         try {
@@ -91,31 +114,49 @@ println(wishlistAPI.listAllWishlists())
 }
 
 fun updateWishList() {
-    logger.info { "upadteWlishList() function invoked" }
-
-}
-
-
-//   logger.info { "deleteWishList() function invoked" }
-fun deleteWishlist(){
-    //logger.info { "deleteNotes() function invoked" }
+//    logger.info { "upadteWlishList() function invoked" }
     listWishList()
     if (wishlistAPI.numberOfWishlists() > 0) {
-        //only ask the user to choose the note to delete if notes exist
-        val indexToDelete = readNextInt("Enter the index of the wishlist to delete: ")
-        //pass the index of the note to NoteAPI for deleting and check for success.
-        val wishlistToDelete = wishlistAPI.deleteWishlist(indexToDelete)
-        if (wishlistToDelete != null) {
-            println("Delete Successful! Deleted wishlist: ${wishlistToDelete.wishlistName}")
-        } else {
-            println("Delete NOT Successful")
+        val indxeToUpdate = readNextInt("Enter the index of the wishlist to update: ")
+        if (wishlistAPI.isValidIndex(indxeToUpdate)) {
+            val wishlistName = readNextLine("Enter a name for the wishlist: ")
+            val wishlistUserName = readNextLine("Enter the person the wishlist belongs to: ")
+            val wishlistPriority = readNextInt("Enter a priority(1-low, 2,3,4, 5-high): ")
+            val wishlistCategory = readNextLine("Enter a category for the wishlist: ")
+            val wishlistDate = LocalDate.now()
+
+            if (wishlistAPI.updateWishlist(indxeToUpdate, Wishlist(wishlistName, wishlistDate,wishlistUserName,wishlistCategory,wishlistPriority,false))){
+                println("Update Successful")
+            }else{
+                println("Update Failed")
+            }
+        }else{
+            println("There is no wishlists for this index number")
+        }
+
+    }}
+
+
+    fun deleteWishlist() {
+        //logger.info { "deleteNotes() function invoked" }
+        listWishList()
+        if (wishlistAPI.numberOfWishlists() > 0) {
+            //only ask the user to choose the note to delete if notes exist
+            val indexToDelete = readNextInt("Enter the index of the wishlist to delete: ")
+            //pass the index of the note to NoteAPI for deleting and check for success.
+            val wishlistToDelete = wishlistAPI.deleteWishlist(indexToDelete)
+            if (wishlistToDelete != null) {
+                println("Delete Successful! Deleted wishlist: ${wishlistToDelete.wishlistName}")
+            } else {
+                println("Delete NOT Successful")
+            }
         }
     }
-}
 
 
+    fun exitApp() {
+        println("Exiting...bye")
+        exit(0)
+    }
 
-fun exitApp() {
-    println("Exiting...bye")
-    exit(0)
-}
+

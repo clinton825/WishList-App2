@@ -1,9 +1,13 @@
 package controllers
 
 import models.Wishlist
+import persistence.Serializer
 import javax.print.attribute.standard.JobPriority
+import kotlin.jvm.Throws
 
-class wishlistAPI {
+
+class WishlistAPI(serializerType: Serializer){
+    private var serializer: Serializer = serializerType
     private var wishlists = ArrayList<Wishlist>()
 
     fun add(wishlist: Wishlist): Boolean{
@@ -111,6 +115,29 @@ fun numberOfWishlists(): Int{
         }else null
     }
 
+fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
+    val foundWishlist = findWishlist(indexToUpdate)
+    if ((foundWishlist != null) && (wishlist != null)){
+        foundWishlist.wishlistName = wishlist.wishlistName
+        foundWishlist.wishlistUserName = wishlist.wishlistUserName
+        foundWishlist.wishlistDate = wishlist.wishlistDate
+        foundWishlist.wishlistPriority = wishlist.wishlistPriority
+        foundWishlist.wishlistCategory = wishlist.wishlistCategory
+        return true
+    }
+    return false
+}
+
+    @Throws(Exception::class)
+    fun load(){
+        wishlists = serializer.read() as ArrayList<Wishlist>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(wishlists)
+    }
+
 fun findWishlist(index:Int):Wishlist? {
     return if (isValidListIndex(index,wishlists)){
         wishlists[index]
@@ -119,6 +146,9 @@ fun findWishlist(index:Int):Wishlist? {
     // utility method to determine if an index is valid in a list
     fun isValidListIndex(index: Int,list: List<Any>): Boolean {
         return (index>= 0 && index < list.size)
+    }
+    fun isValidIndex(index: Int) :Boolean{
+        return isValidListIndex(index, wishlists)
     }
 
 

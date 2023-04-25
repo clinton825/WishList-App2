@@ -56,27 +56,15 @@ fun numberOfWishlists(): Int{
     return wishlists.size
 }
 
-    fun numberOfArchivedWishlists(): Int{
-        var counter = 0
-        for (wishlist in wishlists){
-            if (wishlist.isWishlistArchived){
-                counter++
-            }
-        }
-        return  counter
-    }
+    fun numberOfArchivedWishlists(): Int = wishlists.count {
+        wishlist: Wishlist -> wishlist.isWishlistArchived }
 
-     fun numberOfActiveWishlits(): Int{
-         var counter = 0
-         for (wishlist in wishlists){
-             if (!wishlist.isWishlistArchived) {
-                 counter++
-             }
-         }
-        return counter
-
+     fun numberOfActiveWishlits(): Int {
+         return wishlists.stream()
+             .filter { wishlist: Wishlist -> !wishlist.isWishlistArchived }
+             .count()
+             .toInt()
      }
-
     fun listWishlistBySelectedPrioriry(priority: Int): String{
         return if(wishlists.isEmpty()) {
             "No wishlists stored"
@@ -98,15 +86,8 @@ fun numberOfWishlists(): Int{
         }
     }
 
-    fun numberOfWishlistsByPriority(priority: Int) : Int {
-        var counter = 0
-        for (wishlist in wishlists){
-            if (wishlist.wishlistPriority == priority){
-                counter++
-            }
-        }
-        return counter
-    }
+    fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
+
 
 
     fun deleteWishlist(indexToDelete: Int):Wishlist? {

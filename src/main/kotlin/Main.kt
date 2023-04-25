@@ -1,6 +1,7 @@
 import controllers.WishlistAPI
 import models.Wishlist
 import mu.KotlinLogging
+import persistence.JSONSerializer
 import persistence.Serializer
 import persistence.XMLSerializer
 import utils.ScannerInput.readNextInt
@@ -12,7 +13,8 @@ import java.util.Date
 
 
 private val logger = KotlinLogging.logger {}
-private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+//private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
 
 fun main(args: Array<String>) {
     runMenu()

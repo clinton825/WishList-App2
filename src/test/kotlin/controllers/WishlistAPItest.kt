@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import java.time.LocalDate
@@ -238,6 +239,42 @@ class WishlistAPITest {
             storingWishlists.store()
 
             val loadedWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+            loadedWishlists.load()
+
+            assertEquals(3,storingWishlists.numberOfWishlists())
+            assertEquals(3,loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.findWishlist(0), loadedWishlists.findWishlist(0))
+            assertEquals(storingWishlists.findWishlist(1), loadedWishlists.findWishlist(1))
+            assertEquals(storingWishlists.findWishlist(2), loadedWishlists.findWishlist(2))
+
+
+
+        }
+
+        @Test
+        fun `saving and loading an empty collection in JSON doesn't crash app` ()  {
+            val storingWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
+            storingWishlists.store()
+
+            val loadedWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
+            loadedWishlists.load()
+
+            assertEquals(0,storingWishlists.numberOfWishlists())
+            assertEquals(0,loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
+
+        }
+
+        @Test
+        fun `saving and loading a loaded collection in JSON doesn't lose data`(){
+            val storingWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
+            storingWishlists.add(testApp!!)
+            storingWishlists.add(christmas!!)
+            storingWishlists.add(summerVibe!!)
+            storingWishlists.store()
+
+            val loadedWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
             loadedWishlists.load()
 
             assertEquals(3,storingWishlists.numberOfWishlists())

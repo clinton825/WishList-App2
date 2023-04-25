@@ -15,8 +15,8 @@ import java.util.Date
 
 private val logger = KotlinLogging.logger {}
 //private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
-//private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
-private  val wishlistAPI = WishlistAPI(YAMlSerializer(File("wishlists.yaml")))
+private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
+//private  val wishlistAPI = WishlistAPI(YAMlSerializer(File("wishlists.yaml")))
 
 
 fun main(args: Array<String>) {

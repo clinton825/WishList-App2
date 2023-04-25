@@ -25,7 +25,7 @@ fun runMenu() {
         val option = mainMenu()
         when (option) {
             1 -> addWishList()
-            2 -> listWishList()
+            2 -> listWishlists()
             3 -> updateWishList()
             4 -> deleteWishlist()
             5 -> archiveWishlist()
@@ -113,10 +113,28 @@ fun addWishList() {
 }
 
 
-fun listWishList() {
-    //logger.info { "listWishLists() function invoked" }
-println(wishlistAPI.listAllWishlists())
+fun listWishlists() {
+    if (wishlistAPI.numberOfWishlists() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) View ALL wishlists        |
+                  > |   2) View ACTIVE wishslists    |
+                  > |   3) View ARCHIVED wishslists  |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> listAllWishlists();
+            2 -> listActiveWishlists();
+            3 -> listArchivedWishlists();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No wishlists stored");
+    }
 }
+
 fun archiveWishlist() {
 listActiveWishlists()
     if (wishlistAPI.numberOfActiveWishlits() >0){
@@ -133,10 +151,17 @@ fun listActiveWishlists() {
     println(wishlistAPI.listActiveWishlists())
 
 }
+fun listAllWishlists() {
+    println(wishlistAPI.listAllWishlists())
+}
+
+fun listArchivedWishlists() {
+    println(wishlistAPI.listArchivedWishlists())
+}
 
 fun updateWishList() {
 //    logger.info { "upadteWlishList() function invoked" }
-    listWishList()
+    listWishlists()
     if (wishlistAPI.numberOfWishlists() > 0) {
         val indxeToUpdate = readNextInt("Enter the index of the wishlist to update: ")
         if (wishlistAPI.isValidIndex(indxeToUpdate)) {
@@ -160,7 +185,7 @@ fun updateWishList() {
 
     fun deleteWishlist() {
         //logger.info { "deleteNotes() function invoked" }
-        listWishList()
+        listWishlists()
         if (wishlistAPI.numberOfWishlists() > 0) {
             //only ask the user to choose the note to delete if notes exist
             val indexToDelete = readNextInt("Enter the index of the wishlist to delete: ")

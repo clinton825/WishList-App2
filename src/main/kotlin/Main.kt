@@ -28,6 +28,7 @@ fun runMenu() {
             2 -> listWishList()
             3 -> updateWishList()
             4 -> deleteWishlist()
+            5 -> archiveWishlist()
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
@@ -36,6 +37,7 @@ fun runMenu() {
         }
     } while (true)
 }
+
 
 fun loadWishlist() {
     try {
@@ -64,6 +66,7 @@ fun mainMenu() : Int {
          > |   2) List all WishLists        |
          > |   3) Update the WishList       |
          > |   4) Delete a WishList         |
+         > |   5) Archive a  WishList       |
          > |   20)  Save Wishlists          |
          > |   21) Load Wishlists           |
          > ----------------------------------
@@ -113,6 +116,22 @@ fun addWishList() {
 fun listWishList() {
     //logger.info { "listWishLists() function invoked" }
 println(wishlistAPI.listAllWishlists())
+}
+fun archiveWishlist() {
+listActiveWishlists()
+    if (wishlistAPI.numberOfActiveWishlits() >0){
+        val indexToArchive = readNextInt("Enter the index of the wishlist to archive: ")
+        if (wishlistAPI.archiveWishlist(indexToArchive)){
+            println("Archive Successful!")
+        }else{
+            println("Archive NOT Successful")
+        }
+    }
+}
+
+fun listActiveWishlists() {
+    println(wishlistAPI.listActiveWishlists())
+
 }
 
 fun updateWishList() {

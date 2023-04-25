@@ -128,6 +128,17 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
     return false
 }
 
+    fun archiveWishlist(indexToArchive: Int): Boolean{
+        if (isValidIndex(indexToArchive)){
+            val wishlistToArchive = wishlists[indexToArchive]
+            if (!wishlistToArchive.isWishlistArchived) {
+                wishlistToArchive.isWishlistArchived = true
+                return true
+            }
+        }
+        return false
+    }
+
     @Throws(Exception::class)
     fun load(){
         wishlists = serializer.read() as ArrayList<Wishlist>

@@ -289,4 +289,28 @@ class WishlistAPITest {
         }
     }
 
+    @Nested
+    inner class ArchiveWislists {
+        @Test
+        fun `archiving a wishlist that does not exist returns false`(){
+            assertFalse(populatedWishlists!!.archiveWishlist(6))
+            assertFalse(populatedWishlists!!.archiveWishlist(-1))
+            assertFalse(emptyWishlists!!.archiveWishlist(0))
+        }
+
+        @Test
+        fun `archiving an already archived wishlist returns false`(){
+            assertTrue(populatedWishlists!!.findWishlist(2)!!.isWishlistArchived)
+            assertFalse(populatedWishlists!!.archiveWishlist(2))
+        }
+
+        @Test
+        fun `archiving an active wishlist that exists returns true and archives`() {
+            assertFalse(populatedWishlists!!.findWishlist(4)!!.isWishlistArchived)
+            assertTrue(populatedWishlists!!.archiveWishlist(4))
+            assertTrue(populatedWishlists!!.findWishlist(4)!!.isWishlistArchived)
+        }
+    }
+
+
 }

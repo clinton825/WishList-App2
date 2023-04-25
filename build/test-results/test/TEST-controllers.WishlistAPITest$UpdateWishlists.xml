@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.WishlistAPITest$UpdateWishlists" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-25T09:56:10" hostname="DESKTOP-SDS32N1" time="0.002">
-  <properties/>
-  <testcase name="updating a wishlist that exists returns true and updates()" classname="controllers.WishlistAPITest$UpdateWishlists" time="0.001"/>
-  <testcase name="updating a wishlist that does not exist returns false()" classname="controllers.WishlistAPITest$UpdateWishlists" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

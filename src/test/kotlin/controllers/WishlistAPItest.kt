@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.XMLSerializer
+import java.io.File
 import java.time.LocalDate
 import java.util.*
 import kotlin.test.assertEquals
@@ -19,8 +21,8 @@ class WishlistAPITest {
     private var wedding: Wishlist? = null
     private var winterTime: Wishlist? = null
     private var testApp: Wishlist? = null
-    private var populatedWishlists: wishlistAPI?= wishlistAPI()
-    private var emptyWishlists: wishlistAPI? = wishlistAPI()
+    private var populatedWishlists: WishlistAPI?= WishlistAPI(XMLSerializer(File("wishlists.xml")))
+    private var emptyWishlists: WishlistAPI?= WishlistAPI(XMLSerializer(File("wishlists.xml")))
 
     @BeforeEach
     fun setup() {
@@ -208,6 +210,46 @@ class WishlistAPITest {
         }
 
 
+    }
+
+    @Nested
+    inner class PersistenceTests{
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app` ()  {
+            val storingWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+            storingWishlists.store()
+
+            val loadedWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+            loadedWishlists.load()
+
+            assertEquals(0,storingWishlists.numberOfWishlists())
+            assertEquals(0,loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
+
+        }
+
+        @Test
+        fun `saving and loading a loaded collection in XML doesn't lose data`(){
+            val storingWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+            storingWishlists.add(testApp!!)
+            storingWishlists.add(christmas!!)
+            storingWishlists.add(summerVibe!!)
+            storingWishlists.store()
+
+            val loadedWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+            loadedWishlists.load()
+
+            assertEquals(3,storingWishlists.numberOfWishlists())
+            assertEquals(3,loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
+            assertEquals(storingWishlists.findWishlist(0), loadedWishlists.findWishlist(0))
+            assertEquals(storingWishlists.findWishlist(1), loadedWishlists.findWishlist(1))
+            assertEquals(storingWishlists.findWishlist(2), loadedWishlists.findWishlist(2))
+
+
+
+        }
     }
 
 }

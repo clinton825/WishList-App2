@@ -10,47 +10,37 @@ class WishlistAPI(serializerType: Serializer){
     private var serializer: Serializer = serializerType
     private var wishlists = ArrayList<Wishlist>()
 
+    private fun formatListString(wishlistToFormat: List<Wishlist>): String =
+        wishlistToFormat
+            .joinToString(separator = "\n") { wishlist ->
+                wishlists.indexOf(wishlist).toString() + ": " + wishlist.toString()
+            }
     fun add(wishlist: Wishlist): Boolean{
         return wishlists.add(wishlist)
     }
-    fun listAllWishlists(): String{
-        return if (wishlists.isEmpty()){
-            "no wishlists stored"
-        }else{
-            var listOfWishlists = ""
-            for (i in wishlists.indices){
-                listOfWishlists+= "${i}: ${wishlists[i]} \n"
-            }
-            listOfWishlists
-        }
-    }
+    fun listAllWishlists(): String =
+        if  (wishlists.isEmpty()) "No wishlists stored"
+        else wishlists.joinToString (separator = "\n") { wishlist ->
+            wishlists.indexOf(wishlist).toString() + ": " + wishlist.toString() }
 
-fun listActiveWishlists(): String{
-    return if (numberOfActiveWishlits() == 0){
-        "No active wishlists stored"
-    }else {
-        var listOfActiveWishlists = ""
-        for (wishlist in wishlists){
-            if (!wishlist.isWishlistArchived){
-                listOfActiveWishlists += "${wishlists.indexOf(wishlist)}: $wishlist \n"
-            }
+
+    fun listActiveWishlists(): String =
+        if (numberOfActiveWishlits() == 0) "No active wishlists stored"
+        else formatListString(wishlists.filter { wishlist -> !wishlist.isWishlistArchived })
+
+
+    fun listArchivedWishlists(): String =
+        if  (numberOfArchivedWishlists() == 0) "No archived wishlists stored"
+        else formatListString(wishlists.filter { wishlist -> wishlist.isWishlistArchived})
+
+
+    fun listWishlistsBySelectedPriority(priority: Int): String =
+        if (wishlists.isEmpty()) "No wishlists stored"
+        else {
+            val listOfWishlists = formatListString(wishlists.filter { wishlist -> wishlist.wishlistPriority == priority })
+            if (listOfWishlists.equals("")) "No wishlists with priority: $priority"
+            else "${numberOfWishlistsByPriority(priority)} wishlists with priority $priority: $listOfWishlists"
         }
-        listOfActiveWishlists
-    }
-}
-    fun listArchivedWishlists(): String{
-        return if (numberOfWishlists() == 0) {
-            "NO archived wishlist stored"
-        }else{
-            var listOfArchivedWishlists = ""
-            for (wishlist in wishlists){
-                if (wishlist.isWishlistArchived){
-                    listOfArchivedWishlists += "${wishlists.indexOf(wishlist)}: $wishlist \n"
-                }
-            }
-            listOfArchivedWishlists
-        }
-    }
 
 fun numberOfWishlists(): Int{
     return wishlists.size
@@ -65,26 +55,7 @@ fun numberOfWishlists(): Int{
              .count()
              .toInt()
      }
-    fun listWishlistBySelectedPrioriry(priority: Int): String{
-        return if(wishlists.isEmpty()) {
-            "No wishlists stored"
-        }else {
-            var listOfWishlists = ""
-            for (i in wishlists.indices){
-                if (wishlists[i].wishlistPriority == priority) {
-                    listOfWishlists +=
-                        """"$i: ${wishlists[i]}
-                            """.trimIndent()
 
-                }
-            }
-            if (listOfWishlists.equals("")){
-                "No wishlists with priority:$priority"
-            }else {
-                "{numberOfWishlistsByPriority(priority)} wishlists with priority $priority: $listOfWishlists"
-            }
-        }
-    }
 
     fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
 

@@ -12,7 +12,6 @@ import java.lang.System.exit
 import java.time.LocalDate
 import java.util.Date
 
-
 private val logger = KotlinLogging.logger {}
 //private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
 private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
@@ -32,7 +31,13 @@ fun runMenu() {
             3 -> updateWishList()
             4 -> deleteWishlist()
             5 -> archiveWishlist()
-            6 -> searchWishlist()
+            //6 -> addProductToWishlist()
+            //7 -> updateProductMaterialInWishlists()
+            //8 -> deleteAProuduct()
+            //9 -> labelProductStatus()
+            10 -> searchWishlist()
+            11 -> sortNotes()
+            8 -> categoryWishlists()
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
@@ -40,6 +45,14 @@ fun runMenu() {
 
         }
     } while (true)
+}
+
+fun categoryWishlists() {
+    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
+}
+
+fun sortNotes() {
+    TODO("Not yet implemented")
 }
 
 fun searchWishlist() {
@@ -72,22 +85,44 @@ fun saveWishlist() {
 
 fun mainMenu() : Int {
     return readNextInt(""" 
-         > ----------------------------------
-         > |        SHOPPING WISHLIST APP   |
-         > ----------------------------------
-         > |  WISHLIST MENU                 |
-         > |   1) Add a WishList            |
-         > |   2) List all WishLists        |
-         > |   3) Update the WishList       |
-         > |   4) Delete a WishList         |
-         > |   5) Archive a  WishList       |
-         > |   6) Searching by a name       |
-         > |   20)  Save Wishlists          |
-         > |   21) Load Wishlists           |
-         > ----------------------------------
-         > |   0) Exit                      |
-         > ----------------------------------
-         > ==>> """.trimMargin(">"))
+         > -------------------------------------------------------
+         > |                 SHOPPING WISHLIST APP                |
+         > -------------------------------------------------------
+         > | WISHLIST MENU                                        |
+         > |   1) Add a wishlists                                 |
+         > |   2) List wishlists                                  |
+         > |   3) Update a wishlist                               |
+         > |   4) Delete a wishlist                               |
+         > |   5) Archive a wishlist                              |
+         > -------------------------------------------------------
+         > | PRODUCT MENU                                         | 
+         > |   6) Add product to wishlist                         |
+         > |   7) Update product material on a wishlist           |
+         > |   8) Delete product from a wishlist                  |
+         > |   9) Label product as favourite                      | 
+         > --------------------------------------------------------  
+         > | REPORT MENU FOR WISHLISTS                            | 
+         > |   10) Search for all wishlists (by wishlist name)    |
+         > |   11) Number of wishlists by category                |
+         > |   12) .....                                          |
+         > |   13) .....                                          |
+         > |   14) .....                                          |
+         > ----------------------------------------------------- -- 
+         > | REPORT MENU FOR PRODUCT                              |                                
+         > |   15) Search for all product (by product description)|
+         > |   16) List Favourite Products                        |
+         > |   17) .....                                          |
+         > |   18) .....                                          |
+         > |   19) .....                                          |
+         > --------------------------------------------------------
+         > |   SAVE AND LOAD OPTIONS                              |
+         > |   20) Save Wishlists                                 |
+         > |   21) Load Wishlists                                 |
+         > --------------------------------------------------------  
+         > |   0) Exit                                            |
+         > ---------------------------------------------------------  
+         > ==>> """.trimMargin(">")
+    )
 
 }
 

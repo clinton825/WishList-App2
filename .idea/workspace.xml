@@ -7,14 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="using lamdbas to refactor my number of methods">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" afterDir="false" />
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Creating a new model and adding in extra count feature called sort by category">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wishlists.json" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "product",
+    "git-widget-placeholder": "Adding-product",
     "jdk.selected.JAVA_MODULE": "16",
     "last_opened_file_path": "C:/Users/clinton/Downloads/main.kt",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -340,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682436524399</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Creating a new model and adding in extra count feature called sort by category">
+      <created>1682583903383</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1682583903383</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -418,7 +423,8 @@
     <MESSAGE value="refactoring with lambdas on listing methods" />
     <MESSAGE value="Adding in new feature and using lamdbas to refactor it" />
     <MESSAGE value="using lamdbas to refactor my number of methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="using lamdbas to refactor my number of methods" />
+    <MESSAGE value="Creating a new model and adding in extra count feature called sort by category" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating a new model and adding in extra count feature called sort by category" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

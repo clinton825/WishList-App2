@@ -6,6 +6,7 @@ import persistence.JSONSerializer
 import persistence.Serializer
 import persistence.XMLSerializer
 import persistence.YAMlSerializer
+import utils.ScannerInput.readNextChar
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
@@ -35,7 +36,7 @@ fun runMenu() {
             4 -> deleteWishlist()
             5 -> archiveWishlist()
             6 -> addProductToWishlist()
-            //7 -> updateProductInWishlists()
+            7 -> updateProductInfoInWishlists()
             //8 -> deleteAProuduct()
             //9 -> labelProductStatus()
             10 -> searchWishlist()
@@ -48,77 +49,6 @@ fun runMenu() {
 
         }
     } while (true)
-}
-
-fun askUserToChooseActiveWishlist(): Wishlist? {
-    //show the list of Wish
-    //ask them to chose one
-    listWishlists()
-    if (wishlistAPI.numberOfWishlists() > 0) {
-        val indxeToSee = readNextInt("Enter the index of the wishlist to see: ")
-        if (wishlistAPI.isValidIndex(indxeToSee)) {
-            return wishlistAPI.findWishlist(indxeToSee)
-
-        }
-    }
-    return null
-}
-
-fun addProductToWishlist() {
-    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
-    if (wishlist != null) {
-        if (wishlist.addProduct(
-                Product(
-                    productDescription = readNextLine("\t Product Description: "),
-                    productBrand = readNextLine("\t Product Brand: "),
-                    productPrice = readNextDouble("\t Product Price: "),
-                    productName = readNextLine("\t Product Name: "),
-                    productType = readNextLine("\t Product Type: "),
-                    productId = readNextInt("\t Product ID: "),
-                    productQuantity = readNextInt("\t Product Quantity: ")
-                )
-            )
-        )
-            println("Add Successful!")
-        else println("Add NOT Successful")
-    }
-
-}
-
-
-fun categoryWishlists() {
-    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
-}
-
-fun sortNotes() {
-    TODO("Not yet implemented")
-}
-
-fun searchWishlist() {
-    val searchName = readNextLine("Enter the description to search by: ")
-    val searchResults = wishlistAPI.searchByName(searchName)
-    if (searchResults.isEmpty()) {
-        println("No wishlists found")
-    } else {
-        println(searchResults)
-    }
-}
-
-
-fun loadWishlist() {
-    try {
-        wishlistAPI.load()
-    } catch (e: Exception) {
-        System.err.println("Error reading  from file: $e")
-    }
-}
-
-fun saveWishlist() {
-    try {
-        wishlistAPI.store()
-    } catch (e: Exception) {
-        System.err.println("Error reading  from file: $e")
-    }
 }
 
 
@@ -303,6 +233,123 @@ fun deleteWishlist() {
     }
 }
 
+
+fun updateProductInfoInWishlists() {
+    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
+    if (wishlist != null) {
+        val product: Product? = askUserToChooseProduct(wishlist)
+        if (wishlist != null) {
+
+            if (product != null) {
+                val newName = readNextLine("Enter new Name: ")
+                val newDescription = readNextLine("Enter the new Description: ")
+                val resp = readNextChar("is this a favourite  y or n: ")
+                var respBoolean = false
+                if (resp == 'y')
+                    respBoolean = true
+
+                if (wishlist.update(
+                        product.productId,
+                        Product(
+                            productName = newName,
+                            productDescription = newDescription,
+                            isProductFavourite = respBoolean
+                        )
+                    )
+                ) {
+                    println("Product Info  updated")
+                } else {
+                    println("Product Info NOT updated")
+                }
+            }
+        } else {
+            println("Invalid Product Id")
+        }
+    }
+}
+
+fun askUserToChooseProduct(wishlist: Wishlist): Product? {
+    println(wishlist.listProducts())
+    if (wishlist.numberOfProducts() > 0) {
+
+        val indexProduct = readNextInt("Enter the id of the product: ")
+
+        return wishlist.findOne(indexProduct)
+
+    }
+
+    return null
+}
+
+fun askUserToChooseActiveWishlist(): Wishlist? {
+    //show the list of Wish
+    //ask them to chose one
+    listWishlists()
+    if (wishlistAPI.numberOfWishlists() > 0) {
+        val indxeToSee = readNextInt("Enter the index of the wishlist to see: ")
+        if (wishlistAPI.isValidIndex(indxeToSee)) {
+            return wishlistAPI.findWishlist(indxeToSee)
+
+        }
+    }
+    return null
+}
+
+fun addProductToWishlist() {
+    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
+    if (wishlist != null) {
+        if (wishlist.addProduct(
+                Product(
+                    productDescription = readNextLine("\t Product Description: "),
+                    productBrand = readNextLine("\t Product Brand: "),
+                    productPrice = readNextDouble("\t Product Price: "),
+                    productName = readNextLine("\t Product Name: "),
+                    productType = readNextLine("\t Product Type: "),
+                    productId = readNextInt("\t Product ID: "),
+                    productQuantity = readNextInt("\t Product Quantity: ")
+                )
+            )
+        )
+            println("Add Successful!")
+        else println("Add NOT Successful")
+    }
+
+}
+
+fun categoryWishlists() {
+    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
+}
+
+fun sortNotes() {
+    TODO("Not yet implemented")
+}
+
+fun searchWishlist() {
+    val searchName = readNextLine("Enter the description to search by: ")
+    val searchResults = wishlistAPI.searchByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No wishlists found")
+    } else {
+        println(searchResults)
+    }
+}
+
+
+fun loadWishlist() {
+    try {
+        wishlistAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading  from file: $e")
+    }
+}
+
+fun saveWishlist() {
+    try {
+        wishlistAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error reading  from file: $e")
+    }
+}
 
 fun exitApp() {
     println("Exiting...bye")

@@ -38,8 +38,14 @@ data class Wishlist(
         //if the object exists, use the details passed in the newItem parameter to
         //update the found object in the Set
         if (foundProduct != null){
+            foundProduct.productName = newProduct.productName
             foundProduct.productDescription = newProduct.productDescription
+            foundProduct.productBrand = newProduct.productBrand
+            foundProduct.productPrice = newProduct.productPrice
+            foundProduct.productType = newProduct.productType
+            foundProduct.productQuantity = newProduct.productQuantity
             foundProduct.isProductFavourite = newProduct.isProductFavourite
+
             return true
         }
 

@@ -4,6 +4,8 @@ import models.Wishlist
 import persistence.Serializer
 import javax.print.attribute.standard.JobPriority
 import kotlin.jvm.Throws
+import utils.Utilities.formatListString
+import java.util.ArrayList
 
 
 class WishlistAPI(serializerType: Serializer){
@@ -53,7 +55,8 @@ fun numberOfWishlists(): Int{
 
     fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
 
-
+    fun countWishlistsOfaSpecificCategory(category: String) =
+        wishlists.count{ wishlist: Wishlist -> wishlist.wishlistCategory==category  }
 
     fun deleteWishlist(indexToDelete: Int):Wishlist? {
         return if (isValidListIndex(indexToDelete, wishlists)){

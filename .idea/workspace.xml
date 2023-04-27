@@ -7,10 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding in new feature and using lamdbas to refactor it">
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="using lamdbas to refactor my number of methods">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wishlists.json" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,9 +72,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactoring-numberOf",
+    "git-widget-placeholder": "product",
     "jdk.selected.JAVA_MODULE": "16",
-    "last_opened_file_path": "C:/Users/clinton/OneDrive - South East Technological University (Waterford Campus)/SECOND YEAR/notes-app-2.0",
+    "last_opened_file_path": "C:/Users/clinton/Downloads/main.kt",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "inlay.hints"
   }
@@ -80,7 +84,7 @@
       <recent name="C:\Users\clinton\IdeaProjects\notes-with-items" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.WishlistAPITest">
+  <component name="RunManager" selected="Kotlin.MainKt">
     <configuration name="CountingMethods.numberOfActiveWishlistsCalculatedCorrectly" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -186,9 +190,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.WishlistAPITest" />
         <item itemvalue="Gradle.SearchMethods.search wishlists by name returns no wishlists when no wishlists with that name exist" />
-        <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.WishlistAPITest.listWishlistBySelectedPrioriry returns all wishlists that match that priority when wishlist of that priority exist" />
         <item itemvalue="Gradle.CountingMethods.numberOfActiveWishlistsCalculatedCorrectly" />
       </list>
@@ -329,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682435765912</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="using lamdbas to refactor my number of methods">
+      <created>1682436524399</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1682436524399</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -406,7 +417,8 @@
     <MESSAGE value="refactoring with lambdas on listing number of" />
     <MESSAGE value="refactoring with lambdas on listing methods" />
     <MESSAGE value="Adding in new feature and using lamdbas to refactor it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding in new feature and using lamdbas to refactor it" />
+    <MESSAGE value="using lamdbas to refactor my number of methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="using lamdbas to refactor my number of methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

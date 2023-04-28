@@ -92,6 +92,20 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
         formatListString(
             wishlists.filter { wishlist -> wishlist.wishlistName.contains(searchString, ignoreCase = true) })
 
+    fun searchProductByInfos(searchString: String): String {
+        return if (numberOfWishlists() == 0) "No wishlist stored"
+        else {
+            var listOfWishlist = ""
+            for (wishlist in wishlists) {
+                for (product in wishlist.products) if (product.productName.equals(searchString, ignoreCase = true)) {
+                    listOfWishlist += " ${wishlist.wishlistName} \n\t${product}\n"
+                }
+            }
+            if (listOfWishlist == "") "No product located for: $searchString"
+            else listOfWishlist
+        }
+    }
+
 
     @Throws(Exception::class)
     fun load(){

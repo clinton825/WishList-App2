@@ -40,8 +40,10 @@ fun runMenu() {
             8 -> deleteAProuduct()
             9 -> labelProductStatus()
             10 -> searchWishlist()
-            11 -> sortNotes()
-            8 -> categoryWishlists()
+            //11 -> sortNotes()
+            11 -> categoryWishlists()
+            15 -> searchProducts()
+
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
@@ -365,6 +367,16 @@ fun labelProductStatus() {
             else println("Statues Update Not Successful")
 
         }
+    }
+}
+
+fun searchProducts() {
+    val searchInfos = readNextLine("Enter the item Information to search by: ")
+    val searchResults = wishlistAPI.searchProductByInfos(searchInfos)
+    if (searchResults.isEmpty()) {
+        println("No products Located")
+    } else {
+        println(searchResults)
     }
 }
 

@@ -7,12 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Creating a new model and adding in extra count feature called sort by category">
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding update for the product model to update the product in the wish lish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wishlists.json" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wishlists.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Adding-product" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,7 +70,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Adding-product",
+    "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "16",
     "last_opened_file_path": "C:/Users/clinton/Downloads/main.kt",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -345,7 +345,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682583903383</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Adding in products model">
+      <created>1682607942788</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1682607942788</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Adding update for the product model to update the product in the wish lish">
+      <created>1682615313914</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1682615313914</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -424,7 +438,9 @@
     <MESSAGE value="Adding in new feature and using lamdbas to refactor it" />
     <MESSAGE value="using lamdbas to refactor my number of methods" />
     <MESSAGE value="Creating a new model and adding in extra count feature called sort by category" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating a new model and adding in extra count feature called sort by category" />
+    <MESSAGE value="Adding in products model" />
+    <MESSAGE value="Adding update for the product model to update the product in the wish lish" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding update for the product model to update the product in the wish lish" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

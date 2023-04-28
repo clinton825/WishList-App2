@@ -57,19 +57,19 @@ data class Wishlist(
         else  Utilities.formatListString(products)
     override fun toString(): String {
         val archived = if (isWishlistArchived) 'Y' else 'N'
-        return "$products: $wishlistName,$wishlistDate,$wishlistUserName ,Priority($wishlistPriority) Category($wishlistCategory), Archived($archived) \n${listProducts()}"
+        return " $wishlistName,$wishlistDate,$wishlistUserName ,Priority($wishlistPriority) Category($wishlistCategory), Archived($archived) \n${listProducts()}"
     }
 
-//    fun checkProductFavouriteStatus(): Boolean {
-//        if (products.isNotEmpty()) {
-//            for (product in products) {
-//                if (!products.is) {
-//                    return false
-//                }
-//            }
-//        }
-//        return true //a note with empty items can be archived, or all items are complete
-//    }
+    fun checkProductFavouriteStatus(): Boolean {
+        if (products.isNotEmpty()) {
+            for (product in products) {
+                if (!product.isProductFavourite) {
+                    return false
+                }
+            }
+        }
+        return true //a note with empty items can be archived, or all items are complete
+    }
 
 }
 

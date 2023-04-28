@@ -37,8 +37,8 @@ fun runMenu() {
             5 -> archiveWishlist()
             6 -> addProductToWishlist()
             7 -> updateProductInfoInWishlists()
-            //8 -> deleteAProuduct()
-            //9 -> labelProductStatus()
+            8 -> deleteAProuduct()
+            9 -> labelProductStatus()
             10 -> searchWishlist()
             11 -> sortNotes()
             8 -> categoryWishlists()
@@ -50,6 +50,7 @@ fun runMenu() {
         }
     } while (true)
 }
+
 
 
 fun mainMenu(): Int {
@@ -233,6 +234,44 @@ fun deleteWishlist() {
     }
 }
 
+fun searchWishlist() {
+    val searchName = readNextLine("Enter the description to search by: ")
+    val searchResults = wishlistAPI.searchByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No wishlists found")
+    } else
+        println(searchResults)
+
+}
+
+fun categoryWishlists() {
+    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
+}
+
+fun sortNotes() {
+    TODO("Not yet implemented")
+}
+
+fun addProductToWishlist() {
+    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
+    if (wishlist != null) {
+        if (wishlist.addProduct(
+                Product(
+                    productName = readNextLine("\t Product Name: "),
+                    productDescription = readNextLine("\t Product Description: "),
+                    productPrice = readNextDouble("\t Product Price: "),
+                    productType = readNextLine("\t Product Type: "),
+                    productBrand = readNextLine("\t Product Brand: "),
+                    productId = readNextInt("\t Product ID: "),
+                    productQuantity = readNextInt("\t Product Quantity: ")
+                )
+            )
+        )
+            println("Add Successful!")
+        else println("Add NOT Successful")
+    }
+
+}
 
 fun updateProductInfoInWishlists() {
     val wishlist: Wishlist? = askUserToChooseActiveWishlist()
@@ -295,44 +334,40 @@ fun askUserToChooseActiveWishlist(): Wishlist? {
     return null
 }
 
-fun addProductToWishlist() {
-    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
+fun deleteAProuduct() {
+    val wishlist:Wishlist? = askUserToChooseActiveWishlist()
     if (wishlist != null) {
-        if (wishlist.addProduct(
-                Product(
-                    productDescription = readNextLine("\t Product Description: "),
-                    productBrand = readNextLine("\t Product Brand: "),
-                    productPrice = readNextDouble("\t Product Price: "),
-                    productName = readNextLine("\t Product Name: "),
-                    productType = readNextLine("\t Product Type: "),
-                    productId = readNextInt("\t Product ID: "),
-                    productQuantity = readNextInt("\t Product Quantity: ")
-                )
-            )
-        )
-            println("Add Successful!")
-        else println("Add NOT Successful")
-    }
-
-}
-
-fun categoryWishlists() {
-    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
-}
-
-fun sortNotes() {
-    TODO("Not yet implemented")
-}
-
-fun searchWishlist() {
-    val searchName = readNextLine("Enter the description to search by: ")
-    val searchResults = wishlistAPI.searchByName(searchName)
-    if (searchResults.isEmpty()) {
-        println("No wishlists found")
-    } else {
-        println(searchResults)
+        val product: Product? = askUserToChooseProduct(wishlist)
+        if (product != null) {
+            val isDeleted = wishlist.delete(product.productId)
+            if (isDeleted) {
+                println("Delete Successful!")
+            } else {
+                println("Delete Not Successful!")
+            }
+        }
     }
 }
+
+fun labelProductStatus() {
+    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
+    if (wishlist != null){
+        val product: Product? = askUserToChooseProduct(wishlist)
+        if (product != null){
+            var changeStatus = 'A'
+            if (!product.isProductFavourite){
+                //make it a fav
+                product.isProductFavourite=true
+                println("Statues Update Successful")
+                //tell the user its now a fav
+            }
+            //else tell them already a favout
+            else println("Statues Update Not Successful")
+
+        }
+    }
+}
+
 
 
 fun loadWishlist() {

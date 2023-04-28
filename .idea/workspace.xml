@@ -7,22 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding update for the product model to update the product in the wish list as well as delete and search for my product">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Product.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Wishlist.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/persistence/JSONSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/persistence/JSONSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/persistence/XMLSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/persistence/XMLSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/persistence/YAMlSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/persistence/YAMlSerializer.kt" afterDir="false" />
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding in linting and new plugins">
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/ScannerInput.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/ScannerInput.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/utils/Utilities.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/models/WishlistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/models/WishlistTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPITest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wishlists.json" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wishlists.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wishlists.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +115,8 @@
     <setting file="file://$PROJECT_DIR$/build.gradle.kts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/kotlin/Main.kt" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/kotlin/controllers/WishlistAPI.kt" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPItest.kt" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/utils/ScannerInput.kt" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/kotlin/controllers/WishlistAPITest.kt" root0="SKIP_INSPECTION" />
   </component>
   <component name="KotlinCodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
@@ -163,26 +152,28 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.ass3-wishlist [ktlintFormat]">
-    <configuration name="ass3-wishlist [dokkaJavadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WishlistAPITest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="dokkaJavadoc" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;controllers.WishlistAPITest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="ass3-wishlist [ktlintCheck]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -261,10 +252,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ass3-wishlist [ktlintFormat]" />
+        <item itemvalue="Gradle.WishlistAPITest" />
         <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Gradle.ass3-wishlist [ktlintCheck]" />
         <item itemvalue="Gradle.ass3-wishlist [test]" />
-        <item itemvalue="Gradle.ass3-wishlist [dokkaJavadoc]" />
       </list>
     </recent_temporary>
   </component>
@@ -445,7 +436,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682679420068</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Adding in linting and new plugins">
+      <created>1682691832330</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1682691832330</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -528,7 +526,8 @@
     <MESSAGE value="Adding update for the product model to update the product in the wish lish" />
     <MESSAGE value="Adding update for the product model to update the product in the wish list as well as delete" />
     <MESSAGE value="Adding update for the product model to update the product in the wish list as well as delete and search for my product" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding update for the product model to update the product in the wish list as well as delete and search for my product" />
+    <MESSAGE value="Adding in linting and new plugins" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding in linting and new plugins" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

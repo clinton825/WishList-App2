@@ -3,9 +3,6 @@ import models.Product
 import models.Wishlist
 import mu.KotlinLogging
 import persistence.JSONSerializer
-import persistence.Serializer
-import persistence.XMLSerializer
-import persistence.YAMlSerializer
 import utils.ScannerInput.readNextChar
 import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
@@ -13,14 +10,12 @@ import utils.ScannerInput.readNextLine
 import java.io.File
 import java.lang.System.exit
 import java.time.LocalDate
-import java.util.Date
 
 private val logger = KotlinLogging.logger {}
 
-//private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+// private val wishlistAPI = WishlistAPI(XMLSerializer(File("wishlists.xml")))
 private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
-//private  val wishlistAPI = WishlistAPI(YAMlSerializer(File("wishlists.yaml")))
-
+// private  val wishlistAPI = WishlistAPI(YAMlSerializer(File("wishlists.yaml")))
 
 fun main(args: Array<String>) {
     runMenu()
@@ -40,20 +35,17 @@ fun runMenu() {
             8 -> deleteAProuduct()
             9 -> labelProductStatus()
             10 -> searchWishlist()
-            //11 -> sortNotes()
+            // 11 -> sortNotes()
             11 -> categoryWishlists()
             15 -> searchProducts()
 
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
-            else -> println("Invalid option entered: ${option}")
-
+            else -> println("Invalid option entered: $option")
         }
     } while (true)
 }
-
-
 
 fun mainMenu(): Int {
     return readNextInt(
@@ -96,9 +88,7 @@ fun mainMenu(): Int {
          > ---------------------------------------------------------  
          > ==>> """.trimMargin(">")
     )
-
 }
-
 
 fun addWishlistInput(): Wishlist? {
     val wishlistName = readNextLine("Enter a name for the wishlist: ")
@@ -135,7 +125,6 @@ fun addWishList() {
     }
 }
 
-
 fun listWishlists() {
     if (wishlistAPI.numberOfWishlists() > 0) {
         val option = readNextInt(
@@ -149,13 +138,13 @@ fun listWishlists() {
         )
 
         when (option) {
-            1 -> listAllWishlists();
-            2 -> listActiveWishlists();
-            3 -> listArchivedWishlists();
-            else -> println("Invalid option entered: " + option);
+            1 -> listAllWishlists()
+            2 -> listActiveWishlists()
+            3 -> listArchivedWishlists()
+            else -> println("Invalid option entered: " + option)
         }
     } else {
-        println("Option Invalid - No wishlists stored");
+        println("Option Invalid - No wishlists stored")
     }
 }
 
@@ -173,7 +162,6 @@ fun archiveWishlist() {
 
 fun listActiveWishlists() {
     println(wishlistAPI.listActiveWishlists())
-
 }
 
 fun listAllWishlists() {
@@ -199,13 +187,13 @@ fun updateWishList() {
             if (wishlistAPI.updateWishlist(
                     indxeToUpdate,
                     Wishlist(
-                        wishlistName,
-                        wishlistDate,
-                        wishlistUserName,
-                        wishlistCategory,
-                        wishlistPriority,
-                        false
-                    )
+                            wishlistName,
+                            wishlistDate,
+                            wishlistUserName,
+                            wishlistCategory,
+                            wishlistPriority,
+                            false
+                        )
                 )
             ) {
                 println("Update Successful")
@@ -215,18 +203,16 @@ fun updateWishList() {
         } else {
             println("There is no wishlists for this index number")
         }
-
     }
 }
 
-
 fun deleteWishlist() {
-    //logger.info { "deleteNotes() function invoked" }
+    // logger.info { "deleteNotes() function invoked" }
     listWishlists()
     if (wishlistAPI.numberOfWishlists() > 0) {
-        //only ask the user to choose the note to delete if notes exist
+        // only ask the user to choose the note to delete if notes exist
         val indexToDelete = readNextInt("Enter the index of the wishlist to delete: ")
-        //pass the index of the note to NoteAPI for deleting and check for success.
+        // pass the index of the note to NoteAPI for deleting and check for success.
         val wishlistToDelete = wishlistAPI.deleteWishlist(indexToDelete)
         if (wishlistToDelete != null) {
             println("Delete Successful! Deleted wishlist: ${wishlistToDelete.wishlistName}")
@@ -243,7 +229,6 @@ fun searchWishlist() {
         println("No wishlists found")
     } else
         println(searchResults)
-
 }
 
 fun categoryWishlists() {
@@ -259,20 +244,19 @@ fun addProductToWishlist() {
     if (wishlist != null) {
         if (wishlist.addProduct(
                 Product(
-                    productName = readNextLine("\t Product Name: "),
-                    productDescription = readNextLine("\t Product Description: "),
-                    productPrice = readNextDouble("\t Product Price: "),
-                    productType = readNextLine("\t Product Type: "),
-                    productBrand = readNextLine("\t Product Brand: "),
-                    productId = readNextInt("\t Product ID: "),
-                    productQuantity = readNextInt("\t Product Quantity: ")
-                )
+                        productName = readNextLine("\t Product Name: "),
+                        productDescription = readNextLine("\t Product Description: "),
+                        productPrice = readNextDouble("\t Product Price: "),
+                        productType = readNextLine("\t Product Type: "),
+                        productBrand = readNextLine("\t Product Brand: "),
+                        productId = readNextInt("\t Product ID: "),
+                        productQuantity = readNextInt("\t Product Quantity: ")
+                    )
             )
         )
             println("Add Successful!")
         else println("Add NOT Successful")
     }
-
 }
 
 fun updateProductInfoInWishlists() {
@@ -292,10 +276,10 @@ fun updateProductInfoInWishlists() {
                 if (wishlist.update(
                         product.productId,
                         Product(
-                            productName = newName,
-                            productDescription = newDescription,
-                            isProductFavourite = respBoolean
-                        )
+                                productName = newName,
+                                productDescription = newDescription,
+                                isProductFavourite = respBoolean
+                            )
                     )
                 ) {
                     println("Product Info  updated")
@@ -316,28 +300,26 @@ fun askUserToChooseProduct(wishlist: Wishlist): Product? {
         val indexProduct = readNextInt("Enter the id of the product: ")
 
         return wishlist.findOne(indexProduct)
-
     }
 
     return null
 }
 
 fun askUserToChooseActiveWishlist(): Wishlist? {
-    //show the list of Wish
-    //ask them to chose one
+    // show the list of Wish
+    // ask them to chose one
     listWishlists()
     if (wishlistAPI.numberOfWishlists() > 0) {
         val indxeToSee = readNextInt("Enter the index of the wishlist to see: ")
         if (wishlistAPI.isValidIndex(indxeToSee)) {
             return wishlistAPI.findWishlist(indxeToSee)
-
         }
     }
     return null
 }
 
 fun deleteAProuduct() {
-    val wishlist:Wishlist? = askUserToChooseActiveWishlist()
+    val wishlist: Wishlist? = askUserToChooseActiveWishlist()
     if (wishlist != null) {
         val product: Product? = askUserToChooseProduct(wishlist)
         if (product != null) {
@@ -353,19 +335,18 @@ fun deleteAProuduct() {
 
 fun labelProductStatus() {
     val wishlist: Wishlist? = askUserToChooseActiveWishlist()
-    if (wishlist != null){
+    if (wishlist != null) {
         val product: Product? = askUserToChooseProduct(wishlist)
-        if (product != null){
+        if (product != null) {
             var changeStatus = 'A'
-            if (!product.isProductFavourite){
-                //make it a fav
-                product.isProductFavourite=true
+            if (!product.isProductFavourite) {
+                // make it a fav
+                product.isProductFavourite = true
                 println("Statues Update Successful")
-                //tell the user its now a fav
+                // tell the user its now a fav
             }
-            //else tell them already a favout
+            // else tell them already a favout
             else println("Statues Update Not Successful")
-
         }
     }
 }
@@ -379,8 +360,6 @@ fun searchProducts() {
         println(searchResults)
     }
 }
-
-
 
 fun loadWishlist() {
     try {
@@ -402,5 +381,3 @@ fun exitApp() {
     println("Exiting...bye")
     exit(0)
 }
-
-

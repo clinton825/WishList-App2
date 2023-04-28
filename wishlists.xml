@@ -2,7 +2,7 @@
   <list>
     <models.Wishlist>
       <wishlistName>Test App</wishlistName>
-      <wishlistDate>2023-04-27</wishlistDate>
+      <wishlistDate>2023-04-28</wishlistDate>
       <wishlistUserName>Busu</wishlistUserName>
       <wishlistCategory>Hobby</wishlistCategory>
       <wishlistPriority>9</wishlistPriority>
@@ -12,7 +12,7 @@
     </models.Wishlist>
     <models.Wishlist>
       <wishlistName>Christmas </wishlistName>
-      <wishlistDate>2023-04-27</wishlistDate>
+      <wishlistDate>2023-04-28</wishlistDate>
       <wishlistUserName>Clinton</wishlistUserName>
       <wishlistCategory>Shopping</wishlistCategory>
       <wishlistPriority>5</wishlistPriority>
@@ -22,7 +22,7 @@
     </models.Wishlist>
     <models.Wishlist>
       <wishlistName>SummerVibe</wishlistName>
-      <wishlistDate>2023-04-27</wishlistDate>
+      <wishlistDate>2023-04-28</wishlistDate>
       <wishlistUserName>James</wishlistUserName>
       <wishlistCategory>Holiday</wishlistCategory>
       <wishlistPriority>8</wishlistPriority>

@@ -2,13 +2,8 @@ package controllers
 
 import models.Wishlist
 import persistence.Serializer
-import javax.print.attribute.standard.JobPriority
-import kotlin.jvm.Throws
-import utils.Utilities.formatListString
-import java.util.ArrayList
 
-
-class WishlistAPI(serializerType: Serializer){
+class WishlistAPI(serializerType: Serializer) {
     private var serializer: Serializer = serializerType
     private var wishlists = ArrayList<Wishlist>()
 
@@ -17,24 +12,22 @@ class WishlistAPI(serializerType: Serializer){
             .joinToString(separator = "\n") { wishlist ->
                 wishlists.indexOf(wishlist).toString() + ": " + wishlist.toString()
             }
-    fun add(wishlist: Wishlist): Boolean{
+    fun add(wishlist: Wishlist): Boolean {
         return wishlists.add(wishlist)
     }
     fun listAllWishlists(): String =
-        if  (wishlists.isEmpty()) "No wishlists stored"
-        else wishlists.joinToString (separator = "\n") { wishlist ->
-            wishlists.indexOf(wishlist).toString() + ": " + wishlist.toString() }
-
+        if (wishlists.isEmpty()) "No wishlists stored"
+        else wishlists.joinToString(separator = "\n") { wishlist ->
+            wishlists.indexOf(wishlist).toString() + ": " + wishlist.toString()
+        }
 
     fun listActiveWishlists(): String =
         if (numberOfActiveWishlits() == 0) "No active wishlists stored"
         else formatListString(wishlists.filter { wishlist -> !wishlist.isWishlistArchived })
 
-
     fun listArchivedWishlists(): String =
-        if  (numberOfArchivedWishlists() == 0) "No archived wishlists stored"
-        else formatListString(wishlists.filter { wishlist -> wishlist.isWishlistArchived})
-
+        if (numberOfArchivedWishlists() == 0) "No archived wishlists stored"
+        else formatListString(wishlists.filter { wishlist -> wishlist.isWishlistArchived })
 
     fun listWishlistsBySelectedPriority(priority: Int): String =
         if (wishlists.isEmpty()) "No wishlists stored"
@@ -44,41 +37,40 @@ class WishlistAPI(serializerType: Serializer){
             else "${numberOfWishlistsByPriority(priority)} wishlists with priority $priority: $listOfWishlists"
         }
 
-fun numberOfWishlists(): Int{
-    return wishlists.size
-}
+    fun numberOfWishlists(): Int {
+        return wishlists.size
+    }
 
     fun numberOfArchivedWishlists(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
-
 
     fun numberOfActiveWishlits(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
 
     fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
 
     fun countWishlistsOfaSpecificCategory(category: String) =
-        wishlists.count{ wishlist: Wishlist -> wishlist.wishlistCategory==category  }
+        wishlists.count { wishlist: Wishlist -> wishlist.wishlistCategory == category }
 
-    fun deleteWishlist(indexToDelete: Int):Wishlist? {
-        return if (isValidListIndex(indexToDelete, wishlists)){
+    fun deleteWishlist(indexToDelete: Int): Wishlist? {
+        return if (isValidListIndex(indexToDelete, wishlists)) {
             wishlists.removeAt(indexToDelete)
-        }else null
+        } else null
     }
 
-fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
-    val foundWishlist = findWishlist(indexToUpdate)
-    if ((foundWishlist != null) && (wishlist != null)){
-        foundWishlist.wishlistName = wishlist.wishlistName
-        foundWishlist.wishlistUserName = wishlist.wishlistUserName
-        foundWishlist.wishlistDate = wishlist.wishlistDate
-        foundWishlist.wishlistPriority = wishlist.wishlistPriority
-        foundWishlist.wishlistCategory = wishlist.wishlistCategory
-        return true
+    fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean {
+        val foundWishlist = findWishlist(indexToUpdate)
+        if ((foundWishlist != null) && (wishlist != null)) {
+            foundWishlist.wishlistName = wishlist.wishlistName
+            foundWishlist.wishlistUserName = wishlist.wishlistUserName
+            foundWishlist.wishlistDate = wishlist.wishlistDate
+            foundWishlist.wishlistPriority = wishlist.wishlistPriority
+            foundWishlist.wishlistCategory = wishlist.wishlistCategory
+            return true
+        }
+        return false
     }
-    return false
-}
 
-    fun archiveWishlist(indexToArchive: Int): Boolean{
-        if (isValidIndex(indexToArchive)){
+    fun archiveWishlist(indexToArchive: Int): Boolean {
+        if (isValidIndex(indexToArchive)) {
             val wishlistToArchive = wishlists[indexToArchive]
             if (!wishlistToArchive.isWishlistArchived) {
                 wishlistToArchive.isWishlistArchived = true
@@ -88,9 +80,12 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
         return false
     }
 
-    fun searchByName (searchString : String) =
+    fun searchByName(searchString: String) =
         formatListString(
-            wishlists.filter { wishlist -> wishlist.wishlistName.contains(searchString, ignoreCase = true) })
+            wishlists.filter { wishlist -> wishlist.wishlistName.contains(searchString, ignoreCase = true) }
+        )
+
+    // *********************************************************************
 
     fun searchProductByInfos(searchString: String): String {
         return if (numberOfWishlists() == 0) "No wishlist stored"
@@ -106,9 +101,8 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
         }
     }
 
-
     @Throws(Exception::class)
-    fun load(){
+    fun load() {
         wishlists = serializer.read() as ArrayList<Wishlist>
     }
 
@@ -117,18 +111,16 @@ fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean{
         serializer.write(wishlists)
     }
 
-fun findWishlist(index:Int):Wishlist? {
-    return if (isValidListIndex(index,wishlists)){
-        wishlists[index]
-    }else null
-}
-    // utility method to determine if an index is valid in a list
-    fun isValidListIndex(index: Int,list: List<Any>): Boolean {
-        return (index>= 0 && index < list.size)
+    fun findWishlist(index: Int): Wishlist? {
+        return if (isValidListIndex(index, wishlists)) {
+            wishlists[index]
+        } else null
     }
-    fun isValidIndex(index: Int) :Boolean{
+    // utility method to determine if an index is valid in a list
+    fun isValidListIndex(index: Int, list: List<Any>): Boolean {
+        return (index >= 0 && index < list.size)
+    }
+    fun isValidIndex(index: Int): Boolean {
         return isValidListIndex(index, wishlists)
     }
-
-
 }

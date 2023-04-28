@@ -2,16 +2,15 @@ package controllers
 
 import models.Wishlist
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertNull
 import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import java.time.LocalDate
-import java.util.*
+import java.util.Locale
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
-
 
 class WishlistAPITest {
     private var christmas: Wishlist? = null
@@ -19,8 +18,8 @@ class WishlistAPITest {
     private var wedding: Wishlist? = null
     private var winterTime: Wishlist? = null
     private var testApp: Wishlist? = null
-    private var populatedWishlists: WishlistAPI?= WishlistAPI(XMLSerializer(File("wishlists.xml")))
-    private var emptyWishlists: WishlistAPI?= WishlistAPI(XMLSerializer(File("wishlists.xml")))
+    private var populatedWishlists: WishlistAPI? = WishlistAPI(XMLSerializer(File("wishlists.xml")))
+    private var emptyWishlists: WishlistAPI? = WishlistAPI(XMLSerializer(File("wishlists.xml")))
 
     @BeforeEach
     fun setup() {
@@ -36,7 +35,6 @@ class WishlistAPITest {
         populatedWishlists!!.add(wedding!!)
         populatedWishlists!!.add(winterTime!!)
         populatedWishlists!!.add(testApp!!)
-
     }
     @AfterEach
     fun tearDown() {
@@ -45,7 +43,7 @@ class WishlistAPITest {
         wedding = null
         winterTime = null
         testApp = null
-        populatedWishlists=null
+        populatedWishlists = null
         emptyWishlists = null
     }
     @Nested
@@ -53,21 +51,19 @@ class WishlistAPITest {
         @Test
         fun ` adding a Wishlist to a populated list adds to ArrayList`() {
             val newWishlist = Wishlist("Football", LocalDate.now(), "John", "Sports", 6, false)
-            assertEquals(5,populatedWishlists!!.numberOfWishlists())
+            assertEquals(5, populatedWishlists!!.numberOfWishlists())
             assertTrue(populatedWishlists!!.add(newWishlist))
-            assertEquals(6,populatedWishlists!!.numberOfWishlists())
-            assertEquals(newWishlist,populatedWishlists!!.findWishlist(populatedWishlists!!.numberOfWishlists() -1))
-
+            assertEquals(6, populatedWishlists!!.numberOfWishlists())
+            assertEquals(newWishlist, populatedWishlists!!.findWishlist(populatedWishlists!!.numberOfWishlists() - 1))
         }
 
         @Test
         fun ` adding  a Wishlist to an empty list adds to ArrayList`() {
             val newWishlist = Wishlist("Football", LocalDate.now(), "John", "Sports", 6, false)
-            assertEquals(0,emptyWishlists!!.numberOfWishlists())
+            assertEquals(0, emptyWishlists!!.numberOfWishlists())
             assertTrue(emptyWishlists!!.add(newWishlist))
             assertEquals(1, emptyWishlists!!.numberOfWishlists())
-            assertEquals(newWishlist,emptyWishlists!!.findWishlist(emptyWishlists!!.numberOfWishlists()-1))
-
+            assertEquals(newWishlist, emptyWishlists!!.findWishlist(emptyWishlists!!.numberOfWishlists() - 1))
         }
     }
 
@@ -80,7 +76,7 @@ class WishlistAPITest {
             assertTrue(emptyWishlists!!.listAllWishlists().lowercase().contains("no wishlists stored"))
         }
 
-       @Test
+        @Test
         fun `listAllWishlists returns Wishlists when ArrayList has wishlists stored`() {
             assertEquals(5, populatedWishlists!!.numberOfWishlists())
             val wishlistsString = populatedWishlists!!.listAllWishlists().lowercase()
@@ -91,15 +87,15 @@ class WishlistAPITest {
             assertTrue(wishlistsString.contains("test app"))
         }
         @Test
-       fun `listActiveNotes return no active wishlists stored when ArrayList is empty`(){
-            assertEquals(0,emptyWishlists!!.numberOfActiveWishlits())
+        fun `listActiveNotes return no active wishlists stored when ArrayList is empty`() {
+            assertEquals(0, emptyWishlists!!.numberOfActiveWishlits())
             assertTrue(emptyWishlists!!.listActiveWishlists().lowercase().contains("no active wishlists "))
         }
 
         @Test
-        fun  `listActiveWishlists returns active wishlists when Arraylist has active wishlists stored`() {
+        fun `listActiveWishlists returns active wishlists when Arraylist has active wishlists stored`() {
 
-            assertEquals(3,populatedWishlists!!.numberOfActiveWishlits())
+            assertEquals(3, populatedWishlists!!.numberOfActiveWishlits())
             val activeWishlistsString = populatedWishlists!!.listActiveWishlists().lowercase()
             assertFalse(activeWishlistsString.contains("christmas"))
             assertFalse(activeWishlistsString.contains("summer vibe"))
@@ -108,15 +104,14 @@ class WishlistAPITest {
             assertFalse(activeWishlistsString.contains("testapp"))
         }
         @Test
-        fun `listArchivedWishlists returns no archived wishlists when ArrayList is empty`(){
-            assertEquals(0,emptyWishlists!!.numberOfArchivedWishlists())
+        fun `listArchivedWishlists returns no archived wishlists when ArrayList is empty`() {
+            assertEquals(0, emptyWishlists!!.numberOfArchivedWishlists())
             assertTrue(emptyWishlists!!.listArchivedWishlists().lowercase().contains("no archived wishlists "))
-
         }
         @Test
         fun `listArchivedWishlists returns active wishlists when Arraylist has archive wishlists stored`() {
 
-            assertEquals(3,populatedWishlists!!.numberOfArchivedWishlists())
+            assertEquals(3, populatedWishlists!!.numberOfArchivedWishlists())
             val archiveWishlistsString = populatedWishlists!!.listArchivedWishlists().lowercase()
             assertTrue(archiveWishlistsString.contains("christmas"))
             assertFalse(archiveWishlistsString.contains("summer vibe"))
@@ -128,13 +123,14 @@ class WishlistAPITest {
     @Test
     fun `listWishlistBySelectedPrioriry returns No Notes when ArrayList is empty`() {
         assertEquals(0, emptyWishlists!!.numberOfWishlists())
-        assertTrue(emptyWishlists!!.listWishlistsBySelectedPriority(1).lowercase().contains("no wishlists ")
+        assertTrue(
+            emptyWishlists!!.listWishlistsBySelectedPriority(1).lowercase().contains("no wishlists ")
         )
     }
 
     @Test
     fun `listWishlistBySelectedPrioriry returns no notes when no notes of that priority exist`() {
-        //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+        // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
         assertEquals(5, populatedWishlists!!.numberOfWishlists())
         val priority2String = populatedWishlists!!.listWishlistsBySelectedPriority(2).lowercase()
         assertTrue(priority2String.contains("no wishlists"))
@@ -153,7 +149,6 @@ class WishlistAPITest {
         assertFalse(priority1String.contains("wedding"))
         assertFalse(priority1String.contains("wintertime"))
         assertFalse(priority1String.contains("test app"))
-
 
         val priority4String = populatedWishlists!!.listWishlistsBySelectedPriority(9).lowercase(Locale.getDefault())
         assertFalse(priority4String.contains("2 wishlist"))
@@ -174,7 +169,7 @@ class WishlistAPITest {
             assertNull(populatedWishlists!!.deleteWishlist(5))
         }
 
-       @Test
+        @Test
         fun `deleting a wishlist that exists delete and returns deleted object`() {
             assertEquals(5, populatedWishlists!!.numberOfWishlists())
             assertEquals(testApp, populatedWishlists!!.deleteWishlist(4))
@@ -187,49 +182,46 @@ class WishlistAPITest {
     @Nested
     inner class UpdateWishlists {
         @Test
-        fun `updating a wishlist that does not exist returns false`(){
-            assertFalse(populatedWishlists!!.updateWishlist(6, Wishlist("Updating Wishlist", LocalDate.now(), "Shop","Work", 1,false )))
-            assertFalse(populatedWishlists!!.updateWishlist(-1, Wishlist("Updating Wishlist", LocalDate.now(), "School","Work", 10,false)))
-            assertFalse(emptyWishlists!!.updateWishlist(0, Wishlist("Updating Wishlist", LocalDate.now(), "Education","School" ,8,false)))
+        fun `updating a wishlist that does not exist returns false`() {
+            assertFalse(populatedWishlists!!.updateWishlist(6, Wishlist("Updating Wishlist", LocalDate.now(), "Shop", "Work", 1, false)))
+            assertFalse(populatedWishlists!!.updateWishlist(-1, Wishlist("Updating Wishlist", LocalDate.now(), "School", "Work", 10, false)))
+            assertFalse(emptyWishlists!!.updateWishlist(0, Wishlist("Updating Wishlist", LocalDate.now(), "Education", "School", 8, false)))
         }
 
         @Test
         fun `updating a wishlist that exists returns true and updates`() {
-            //check note 5 exists and check the contents
+            // check note 5 exists and check the contents
             assertEquals(testApp, populatedWishlists!!.findWishlist(4))
             assertEquals("Test App", populatedWishlists!!.findWishlist(4)!!.wishlistName)
             assertEquals(9, populatedWishlists!!.findWishlist(4)!!.wishlistPriority)
             assertEquals("Hobby", populatedWishlists!!.findWishlist(4)!!.wishlistCategory)
 
-         // update note 5 with new information and ensure contents updated successfully
-           assertTrue(populatedWishlists!!.updateWishlist(4, Wishlist("Updating Wishlist",LocalDate.now(), "College", "Education",5,false)))
+            // update note 5 with new information and ensure contents updated successfully
+            assertTrue(populatedWishlists!!.updateWishlist(4, Wishlist("Updating Wishlist", LocalDate.now(), "College", "Education", 5, false)))
             assertEquals("Updating Wishlist", populatedWishlists!!.findWishlist(4)!!.wishlistName)
             assertEquals(5, populatedWishlists!!.findWishlist(4)!!.wishlistPriority)
-           assertEquals("Education", populatedWishlists!!.findWishlist(4)!!.wishlistCategory)
+            assertEquals("Education", populatedWishlists!!.findWishlist(4)!!.wishlistCategory)
         }
-
-
     }
 
     @Nested
-    inner class PersistenceTests{
+    inner class PersistenceTests {
 
         @Test
-        fun `saving and loading an empty collection in XML doesn't crash app` ()  {
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
             val storingWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
             storingWishlists.store()
 
             val loadedWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
             loadedWishlists.load()
 
-            assertEquals(0,storingWishlists.numberOfWishlists())
-            assertEquals(0,loadedWishlists.numberOfWishlists())
+            assertEquals(0, storingWishlists.numberOfWishlists())
+            assertEquals(0, loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
-
         }
 
         @Test
-        fun `saving and loading a loaded collection in XML doesn't lose data`(){
+        fun `saving and loading a loaded collection in XML doesn't lose data`() {
             val storingWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
             storingWishlists.add(testApp!!)
             storingWishlists.add(christmas!!)
@@ -239,33 +231,29 @@ class WishlistAPITest {
             val loadedWishlists = WishlistAPI(XMLSerializer(File("wishlists.xml")))
             loadedWishlists.load()
 
-            assertEquals(3,storingWishlists.numberOfWishlists())
-            assertEquals(3,loadedWishlists.numberOfWishlists())
+            assertEquals(3, storingWishlists.numberOfWishlists())
+            assertEquals(3, loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.findWishlist(0), loadedWishlists.findWishlist(0))
             assertEquals(storingWishlists.findWishlist(1), loadedWishlists.findWishlist(1))
             assertEquals(storingWishlists.findWishlist(2), loadedWishlists.findWishlist(2))
-
-
-
         }
 
         @Test
-        fun `saving and loading an empty collection in JSON doesn't crash app` ()  {
+        fun `saving and loading an empty collection in JSON doesn't crash app`() {
             val storingWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
             storingWishlists.store()
 
             val loadedWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
             loadedWishlists.load()
 
-            assertEquals(0,storingWishlists.numberOfWishlists())
-            assertEquals(0,loadedWishlists.numberOfWishlists())
+            assertEquals(0, storingWishlists.numberOfWishlists())
+            assertEquals(0, loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
-
         }
 
         @Test
-        fun `saving and loading a loaded collection in JSON doesn't lose data`(){
+        fun `saving and loading a loaded collection in JSON doesn't lose data`() {
             val storingWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
             storingWishlists.add(testApp!!)
             storingWishlists.add(christmas!!)
@@ -275,29 +263,26 @@ class WishlistAPITest {
             val loadedWishlists = WishlistAPI(JSONSerializer(File("wishlists.json")))
             loadedWishlists.load()
 
-            assertEquals(3,storingWishlists.numberOfWishlists())
-            assertEquals(3,loadedWishlists.numberOfWishlists())
+            assertEquals(3, storingWishlists.numberOfWishlists())
+            assertEquals(3, loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.numberOfWishlists(), loadedWishlists.numberOfWishlists())
             assertEquals(storingWishlists.findWishlist(0), loadedWishlists.findWishlist(0))
             assertEquals(storingWishlists.findWishlist(1), loadedWishlists.findWishlist(1))
             assertEquals(storingWishlists.findWishlist(2), loadedWishlists.findWishlist(2))
-
-
-
         }
     }
 
     @Nested
     inner class ArchiveWislists {
         @Test
-        fun `archiving a wishlist that does not exist returns false`(){
+        fun `archiving a wishlist that does not exist returns false`() {
             assertFalse(populatedWishlists!!.archiveWishlist(6))
             assertFalse(populatedWishlists!!.archiveWishlist(-1))
             assertFalse(emptyWishlists!!.archiveWishlist(0))
         }
 
         @Test
-        fun `archiving an already archived wishlist returns false`(){
+        fun `archiving an already archived wishlist returns false`() {
             assertTrue(populatedWishlists!!.findWishlist(2)!!.isWishlistArchived)
             assertFalse(populatedWishlists!!.archiveWishlist(2))
         }
@@ -378,7 +363,4 @@ class WishlistAPITest {
             Assertions.assertFalse(searchResults.contains("Summer - Vibe"))
         }
     }
-
-
-
 }

@@ -43,7 +43,7 @@ class WishlistAPI(serializerType: Serializer) {
 
     fun numberOfArchivedWishlists(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
 
-    fun numberOfActiveWishlits(): Int = wishlists.count { wishlist: Wishlist -> wishlist.isWishlistArchived }
+    fun numberOfActiveWishlits(): Int = wishlists.count { wishlist: Wishlist -> !wishlist.isWishlistArchived }
 
     fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -> p.wishlistPriority == priority }
 

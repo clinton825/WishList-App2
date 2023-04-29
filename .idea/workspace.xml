@@ -7,8 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding in linting and new plugins">
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+    <list default="true" id="b775bf16-f642-43dd-9f95-bea0d3c4265f" name="Changes" comment="Adding in linting and new plugins for jar and fat jar">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/models/WishlistTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/models/WishlistTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +124,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Njtf0hjMy1wAxKsBZJMhrJ7XF4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -149,8 +150,8 @@
       <recent name="C:\Users\clinton\IdeaProjects\notes-with-items" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ass3-wishlist [build]">
-    <configuration name="WishlistAPITest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.WishlistTest">
+    <configuration name="WishlistTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -163,7 +164,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;controllers.WishlistAPITest&quot;" />
+            <option value="&quot;models.WishlistTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -174,86 +175,109 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="ass3-wishlist [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WishlistTest.test findOne returns correct product by id" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;models.WishlistTest.test findOne returns correct product by id&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="ass3-wishlist [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="addProducts" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="jar" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;models.WishlistTest$addProducts&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="ass3-wishlist [ktlintFormat]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="addProducts.test addProduct adds a product to wishlist" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="ktlintFormat" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;models.WishlistTest$addProducts.test addProduct adds a product to wishlist&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MainKt" />
-      <module name="untitled.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="addProducts.test addProduct does  add duplicate products by productId" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;models.WishlistTest$addProducts.test addProduct does  add duplicate products by productId&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ass3-wishlist [build]" />
-        <item itemvalue="Gradle.ass3-wishlist [jar]" />
-        <item itemvalue="Kotlin.MainKt" />
-        <item itemvalue="Gradle.ass3-wishlist [ktlintFormat]" />
-        <item itemvalue="Gradle.WishlistAPITest" />
+        <item itemvalue="Gradle.WishlistTest" />
+        <item itemvalue="Gradle.WishlistTest.test findOne returns correct product by id" />
+        <item itemvalue="Gradle.addProducts.test addProduct does  add duplicate products by productId" />
+        <item itemvalue="Gradle.addProducts" />
+        <item itemvalue="Gradle.addProducts.test addProduct adds a product to wishlist" />
       </list>
     </recent_temporary>
   </component>
@@ -448,7 +472,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682694113511</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Adding in linting and new plugins for jar and fat jar">
+      <created>1682696507200</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1682696507200</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Adding in linting and new plugins for jar and fat jar">
+      <created>1682696515892</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1682696515892</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Adding in linting and new plugins for jar and fat jar">
+      <created>1682766531836</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1682766531836</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -532,7 +577,8 @@
     <MESSAGE value="Adding update for the product model to update the product in the wish list as well as delete" />
     <MESSAGE value="Adding update for the product model to update the product in the wish list as well as delete and search for my product" />
     <MESSAGE value="Adding in linting and new plugins" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding in linting and new plugins" />
+    <MESSAGE value="Adding in linting and new plugins for jar and fat jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding in linting and new plugins for jar and fat jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -20,7 +20,6 @@ private val wishlistAPI = WishlistAPI(JSONSerializer(File("wishlists.json")))
 fun main(args: Array<String>) {
     runMenu()
 }
-
 fun runMenu() {
     do {
         val option = mainMenu()
@@ -38,7 +37,6 @@ fun runMenu() {
             // 11 -> sortNotes()
             11 -> categoryWishlists()
             15 -> searchProducts()
-
             20 -> saveWishlist()
             21 -> loadWishlist()
             0 -> exitApp()
@@ -46,7 +44,6 @@ fun runMenu() {
         }
     } while (true)
 }
-
 fun mainMenu(): Int {
     return readNextInt(
         """ 
@@ -68,17 +65,11 @@ fun mainMenu(): Int {
          > --------------------------------------------------------  
          > | REPORT MENU FOR WISHLISTS                            | 
          > |   10) Search for all wishlists (by wishlist name)    |
-         > |   11) Number of wishlists by category                |
-         > |   12) .....                                          |
-         > |   13) .....                                          |
-         > |   14) .....                                          |
+         > |   11) Number of wishlists by category                |                                     
          > ----------------------------------------------------- -- 
          > | REPORT MENU FOR PRODUCT                              |                                
          > |   15) Search for all product (by product description)|
          > |   16) List Favourite Products                        |
-         > |   17) .....                                          |
-         > |   18) .....                                          |
-         > |   19) .....                                          |
          > --------------------------------------------------------
          > |   SAVE AND LOAD OPTIONS                              |
          > |   20) Save Wishlists                                 |
@@ -90,6 +81,7 @@ fun mainMenu(): Int {
     )
 }
 
+// *********************************************************************************
 fun addWishlistInput(): Wishlist? {
     val wishlistName = readNextLine("Enter a name for the wishlist: ")
     val wishlistUserName = readNextLine("Enter the name of the person whom the wishlist belongs to: ")
@@ -231,6 +223,8 @@ fun searchWishlist() {
         println(searchResults)
 }
 
+//categoryWishlists that prompts the user to enter a category name and retrieves the number of wishlists that exist in the specified category
+// using a wishlistAPI object's countWishlistsOfaSpecificCategory method.
 fun categoryWishlists() {
     println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine("Enter category to see how many there is: ")))
 }
@@ -238,6 +232,9 @@ fun categoryWishlists() {
 fun sortNotes() {
     TODO("Not yet implemented")
 }
+//*****************************************************************************
+// In this section i added a product to the wish list
+
 
 fun addProductToWishlist() {
     val wishlist: Wishlist? = askUserToChooseActiveWishlist()
@@ -276,10 +273,10 @@ fun updateProductInfoInWishlists() {
                 if (wishlist.update(
                         product.productId,
                         Product(
-                                productName = newName,
-                                productDescription = newDescription,
-                                isProductFavourite = respBoolean
-                            )
+                            productName = newName,
+                            productDescription = newDescription,
+                            isProductFavourite = respBoolean
+                        )
                     )
                 ) {
                     println("Product Info  updated")
@@ -293,30 +290,7 @@ fun updateProductInfoInWishlists() {
     }
 }
 
-fun askUserToChooseProduct(wishlist: Wishlist): Product? {
-    println(wishlist.listProducts())
-    if (wishlist.numberOfProducts() > 0) {
 
-        val indexProduct = readNextInt("Enter the id of the product: ")
-
-        return wishlist.findOne(indexProduct)
-    }
-
-    return null
-}
-
-fun askUserToChooseActiveWishlist(): Wishlist? {
-    // show the list of Wish
-    // ask them to chose one
-    listWishlists()
-    if (wishlistAPI.numberOfWishlists() > 0) {
-        val indxeToSee = readNextInt("Enter the index of the wishlist to see: ")
-        if (wishlistAPI.isValidIndex(indxeToSee)) {
-            return wishlistAPI.findWishlist(indxeToSee)
-        }
-    }
-    return null
-}
 
 fun deleteAProuduct() {
     val wishlist: Wishlist? = askUserToChooseActiveWishlist()
@@ -359,6 +333,34 @@ fun searchProducts() {
     } else {
         println(searchResults)
     }
+}
+
+
+// Helpers Methods, which help the user to chose which product they want to see
+
+fun askUserToChooseProduct(wishlist: Wishlist): Product? {
+    println(wishlist.listProducts())
+    if (wishlist.numberOfProducts() > 0) {
+
+        val indexProduct = readNextInt("Enter the id of the product: ")
+
+        return wishlist.findOne(indexProduct)
+    }
+
+    return null
+}
+
+fun askUserToChooseActiveWishlist(): Wishlist? {
+    // show the list of Wish
+    // ask them to chose one
+    listWishlists()
+    if (wishlistAPI.numberOfWishlists() > 0) {
+        val indxeToSee = readNextInt("Enter the index of the wishlist to see: ")
+        if (wishlistAPI.isValidIndex(indxeToSee)) {
+            return wishlistAPI.findWishlist(indxeToSee)
+        }
+    }
+    return null
 }
 
 fun loadWishlist() {

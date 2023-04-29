@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WishlistAPI.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">untitled</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">WishlistAPI.kt</span></div><h1>WishlistAPI.kt</h1><pre class="source lang-java linenums">package controllers
+
+import models.Wishlist
+import persistence.Serializer
+
+<span class="nc" id="L6">class WishlistAPI(serializerType: Serializer) {</span>
+<span class="nc" id="L7">    private var serializer: Serializer = serializerType</span>
+<span class="nc" id="L8">    private var wishlists = ArrayList&lt;Wishlist&gt;()</span>
+
+    private fun formatListString(wishlistToFormat: List&lt;Wishlist&gt;): String =
+<span class="nc" id="L11">        wishlistToFormat</span>
+<span class="nc" id="L12">            .joinToString(separator = &quot;\n&quot;) { wishlist -&gt;</span>
+<span class="nc" id="L13">                wishlists.indexOf(wishlist).toString() + &quot;: &quot; + wishlist.toString()</span>
+<span class="nc" id="L14">            }</span>
+    fun add(wishlist: Wishlist): Boolean {
+<span class="nc" id="L16">        return wishlists.add(wishlist)</span>
+    }
+    fun listAllWishlists(): String =
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (wishlists.isEmpty()) &quot;No wishlists stored&quot;</span>
+<span class="nc" id="L20">        else wishlists.joinToString(separator = &quot;\n&quot;) { wishlist -&gt;</span>
+<span class="nc" id="L21">            wishlists.indexOf(wishlist).toString() + &quot;: &quot; + wishlist.toString()</span>
+<span class="nc" id="L22">        }</span>
+
+    fun listActiveWishlists(): String =
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (numberOfActiveWishlits() == 0) &quot;No active wishlists stored&quot;</span>
+<span class="nc bnc" id="L26" title="All 4 branches missed.">        else formatListString(wishlists.filter { wishlist -&gt; !wishlist.isWishlistArchived })</span>
+
+    fun listArchivedWishlists(): String =
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (numberOfArchivedWishlists() == 0) &quot;No archived wishlists stored&quot;</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        else formatListString(wishlists.filter { wishlist -&gt; wishlist.isWishlistArchived })</span>
+
+    fun listWishlistsBySelectedPriority(priority: Int): String =
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (wishlists.isEmpty()) &quot;No wishlists stored&quot;</span>
+        else {
+<span class="nc bnc" id="L35" title="All 4 branches missed.">            val listOfWishlists = formatListString(wishlists.filter { wishlist -&gt; wishlist.wishlistPriority == priority })</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (listOfWishlists.equals(&quot;&quot;)) &quot;No wishlists with priority: $priority&quot;</span>
+<span class="nc" id="L37">            else &quot;${numberOfWishlistsByPriority(priority)} wishlists with priority $priority: $listOfWishlists&quot;</span>
+<span class="nc" id="L38">        }</span>
+
+    fun numberOfWishlists(): Int {
+<span class="nc" id="L41">        return wishlists.size</span>
+    }
+
+<span class="nc bnc" id="L44" title="All 4 branches missed.">    fun numberOfArchivedWishlists(): Int = wishlists.count { wishlist: Wishlist -&gt; wishlist.isWishlistArchived }</span>
+
+<span class="nc bnc" id="L46" title="All 6 branches missed.">    fun numberOfActiveWishlits(): Int = wishlists.count { wishlist: Wishlist -&gt; !wishlist.isWishlistArchived }</span>
+
+<span class="nc bnc" id="L48" title="All 6 branches missed.">    fun numberOfWishlistsByPriority(priority: Int): Int = wishlists.count { p: Wishlist -&gt; p.wishlistPriority == priority }</span>
+
+    fun countWishlistsOfaSpecificCategory(category: String) =
+<span class="nc bnc" id="L51" title="All 4 branches missed.">        wishlists.count { wishlist: Wishlist -&gt; wishlist.wishlistCategory == category }</span>
+
+    fun deleteWishlist(indexToDelete: Int): Wishlist? {
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        return if (isValidListIndex(indexToDelete, wishlists)) {</span>
+<span class="nc" id="L55">            wishlists.removeAt(indexToDelete)</span>
+<span class="nc" id="L56">        } else null</span>
+    }
+
+    fun updateWishlist(indexToUpdate: Int, wishlist: Wishlist?): Boolean {
+<span class="nc" id="L60">        val foundWishlist = findWishlist(indexToUpdate)</span>
+<span class="nc bnc" id="L61" title="All 4 branches missed.">        if ((foundWishlist != null) &amp;&amp; (wishlist != null)) {</span>
+<span class="nc" id="L62">            foundWishlist.wishlistName = wishlist.wishlistName</span>
+<span class="nc" id="L63">            foundWishlist.wishlistUserName = wishlist.wishlistUserName</span>
+<span class="nc" id="L64">            foundWishlist.wishlistDate = wishlist.wishlistDate</span>
+<span class="nc" id="L65">            foundWishlist.wishlistPriority = wishlist.wishlistPriority</span>
+<span class="nc" id="L66">            foundWishlist.wishlistCategory = wishlist.wishlistCategory</span>
+<span class="nc" id="L67">            return true</span>
+        }
+<span class="nc" id="L69">        return false</span>
+    }
+
+    fun archiveWishlist(indexToArchive: Int): Boolean {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (isValidIndex(indexToArchive)) {</span>
+<span class="nc" id="L74">            val wishlistToArchive = wishlists[indexToArchive]</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (!wishlistToArchive.isWishlistArchived) {</span>
+<span class="nc" id="L76">                wishlistToArchive.isWishlistArchived = true</span>
+<span class="nc" id="L77">                return true</span>
+            }
+        }
+<span class="nc" id="L80">        return false</span>
+    }
+
+    fun searchByName(searchString: String) =
+<span class="nc" id="L84">        formatListString(</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            wishlists.filter { wishlist -&gt; wishlist.wishlistName.contains(searchString, ignoreCase = true) }</span>
+<span class="nc" id="L86">        )</span>
+
+    // *********************************************************************
+
+    fun searchProductByInfos(searchString: String): String {
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        return if (numberOfWishlists() == 0) &quot;No wishlist stored&quot;</span>
+        else {
+<span class="nc" id="L93">            var listOfWishlist = &quot;&quot;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            for (wishlist in wishlists) {</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">                for (product in wishlist.products) if (product.productName.equals(searchString, ignoreCase = true)) {</span>
+<span class="nc" id="L96">                    listOfWishlist += &quot; ${wishlist.wishlistName} \n\t${product}\n&quot;</span>
+                }
+            }
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (listOfWishlist == &quot;&quot;) &quot;No product located for: $searchString&quot;</span>
+<span class="nc" id="L100">            else listOfWishlist</span>
+        }
+    }
+
+    @Throws(Exception::class)
+    fun load() {
+<span class="nc" id="L106">        wishlists = serializer.read() as ArrayList&lt;Wishlist&gt;</span>
+<span class="nc" id="L107">    }</span>
+
+    @Throws(Exception::class)
+    fun store() {
+<span class="nc" id="L111">        serializer.write(wishlists)</span>
+<span class="nc" id="L112">    }</span>
+
+    fun findWishlist(index: Int): Wishlist? {
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        return if (isValidListIndex(index, wishlists)) {</span>
+<span class="nc" id="L116">            wishlists[index]</span>
+<span class="nc" id="L117">        } else null</span>
+    }
+    // utility method to determine if an index is valid in a list
+    fun isValidListIndex(index: Int, list: List&lt;Any&gt;): Boolean {
+<span class="nc bnc" id="L121" title="All 4 branches missed.">        return (index &gt;= 0 &amp;&amp; index &lt; list.size)</span>
+    }
+    fun isValidIndex(index: Int): Boolean {
+<span class="nc" id="L124">        return isValidListIndex(index, wishlists)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

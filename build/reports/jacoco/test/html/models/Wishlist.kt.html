@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Wishlist.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">untitled</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">Wishlist.kt</span></div><h1>Wishlist.kt</h1><pre class="source lang-java linenums">package models
+
+import utils.Utilities
+import java.time.LocalDate
+
+<span class="fc" id="L6">data class Wishlist(</span>
+<span class="pc" id="L7">    var wishlistName: String,</span>
+<span class="pc" id="L8">    var wishlistDate: LocalDate,</span>
+<span class="pc" id="L9">    var wishlistUserName: String,</span>
+<span class="pc" id="L10">    var wishlistCategory: String,</span>
+<span class="pc" id="L11">    var wishlistPriority: Int,</span>
+<span class="pc" id="L12">    var isWishlistArchived: Boolean,</span>
+<span class="pc" id="L13">    var products: MutableSet&lt;Product&gt; = mutableSetOf()</span>
+) {
+
+    // functions to manage the product set will go in here
+
+    private var lastProductId = 0
+<span class="fc" id="L19">    private fun getProductId() = lastProductId++</span>
+
+    fun addProduct(product: Product): Boolean {
+<span class="fc" id="L22">        product.productId = getProductId()</span>
+<span class="fc" id="L23">        return products.add(product)</span>
+    }
+<span class="fc" id="L25">    fun numberOfProducts() = products.size</span>
+
+    fun findOne(id: Int): Product? {
+<span class="pc bpc" id="L28" title="2 of 6 branches missed.">        return products.find { product -&gt; product.productId == id }</span>
+    }
+
+    fun delete(id: Int): Boolean {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        return products.removeIf { product -&gt; product.productId == id }</span>
+    }
+
+    fun update(id: Int, newProduct: Product): Boolean {
+<span class="nc" id="L36">        val foundProduct = findOne(id)</span>
+
+        // if the object exists, use the details passed in the newItem parameter to
+        // update the found object in the Set
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (foundProduct != null) {</span>
+<span class="nc" id="L41">            foundProduct.productName = newProduct.productName</span>
+<span class="nc" id="L42">            foundProduct.productDescription = newProduct.productDescription</span>
+<span class="nc" id="L43">            foundProduct.productBrand = newProduct.productBrand</span>
+<span class="nc" id="L44">            foundProduct.productPrice = newProduct.productPrice</span>
+<span class="nc" id="L45">            foundProduct.productType = newProduct.productType</span>
+<span class="nc" id="L46">            foundProduct.productQuantity = newProduct.productQuantity</span>
+<span class="nc" id="L47">            foundProduct.isProductFavourite = newProduct.isProductFavourite</span>
+
+<span class="nc" id="L49">            return true</span>
+        }
+
+        // if the object was not found, return false, indicating that the update was not successful
+<span class="nc" id="L53">        return false</span>
+    }
+    fun listProducts() =
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (products.isEmpty()) &quot;\tNO PRODUCTS ADDED&quot;</span>
+<span class="pc" id="L57">        else Utilities.formatListString(products)</span>
+    override fun toString(): String {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        val archived = if (isWishlistArchived) 'Y' else 'N'</span>
+<span class="fc" id="L60">        return &quot; $wishlistName,$wishlistDate,$wishlistUserName ,Priority($wishlistPriority) Category($wishlistCategory), Archived($archived) \n${listProducts()}&quot;</span>
+    }
+
+    fun checkProductFavouriteStatus(): Boolean {
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        if (products.isNotEmpty()) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            for (product in products) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                if (!product.isProductFavourite) {</span>
+<span class="nc" id="L67">                    return false</span>
+                }
+            }
+        }
+<span class="nc" id="L71">        return true // a note with empty items can be archived, or all items are complete</span>
+    }
+<span class="fc" id="L73">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

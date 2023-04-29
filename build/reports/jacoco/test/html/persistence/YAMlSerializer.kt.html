@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YAMlSerializer.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">untitled</a> &gt; <a href="index.source.html" class="el_package">persistence</a> &gt; <span class="el_source">YAMlSerializer.kt</span></div><h1>YAMlSerializer.kt</h1><pre class="source lang-java linenums">package persistence
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import models.Wishlist
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
+// https://www.baeldung.com/jackson-yaml
+<span class="nc" id="L12">class YAMlSerializer(private val file: File) : Serializer {</span>
+    override fun write(obj: Any?) {
+<span class="nc" id="L14">        var mapper = ObjectMapper(YAMLFactory()) // Enable YAML parsing</span>
+<span class="nc" id="L15">        mapper.registerModule(KotlinModule()) // Enable Kotlin support</span>
+<span class="nc" id="L16">        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)</span>
+        // mapper = ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER))
+<span class="nc" id="L18">        mapper.writeValue(file, obj)</span>
+<span class="nc" id="L19">    }</span>
+
+    override fun read(): Any? {
+<span class="nc" id="L22">        val path = Paths.get(file.path)</span>
+<span class="nc" id="L23">        val mapper = ObjectMapper(YAMLFactory()) // Enable YAML parsing</span>
+<span class="nc" id="L24">        mapper.registerModule(KotlinModule()) // Enable Kotlin support</span>
+<span class="nc" id="L25">        mapper.findAndRegisterModules()</span>
+        // mapper.readValue(File(&quot;src/main/resources/orderInput.yaml&quot;), Order::class.java)
+<span class="nc" id="L27">        return Files.newBufferedReader(path).use {</span>
+<span class="nc" id="L28">            mapper.readValue(it, Wishlist::class.java)</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

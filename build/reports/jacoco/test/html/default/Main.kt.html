@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">untitled</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.kt</span></div><h1>Main.kt</h1><pre class="source lang-java linenums">import controllers.WishlistAPI
+import models.Product
+import models.Wishlist
+import mu.KotlinLogging
+import persistence.JSONSerializer
+import utils.ScannerInput.readNextChar
+import utils.ScannerInput.readNextDouble
+import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
+import java.io.File
+import java.lang.System.exit
+import java.time.LocalDate
+
+<span class="nc" id="L14">private val logger = KotlinLogging.logger {}</span>
+
+// private val wishlistAPI = WishlistAPI(XMLSerializer(File(&quot;wishlists.xml&quot;)))
+<span class="nc" id="L17">private val wishlistAPI = WishlistAPI(JSONSerializer(File(&quot;wishlists.json&quot;)))</span>
+// private  val wishlistAPI = WishlistAPI(YAMlSerializer(File(&quot;wishlists.yaml&quot;)))
+
+fun main(args: Array&lt;String&gt;) {
+<span class="nc" id="L21">    runMenu()</span>
+<span class="nc" id="L22">}</span>
+
+fun runMenu() {
+    do {
+<span class="nc" id="L26">        val option = mainMenu()</span>
+<span class="nc bnc" id="L27" title="All 16 branches missed.">        when (option) {</span>
+<span class="nc" id="L28">            1 -&gt; addWishList()</span>
+<span class="nc" id="L29">            2 -&gt; listWishlists()</span>
+<span class="nc" id="L30">            3 -&gt; updateWishList()</span>
+<span class="nc" id="L31">            4 -&gt; deleteWishlist()</span>
+<span class="nc" id="L32">            5 -&gt; archiveWishlist()</span>
+<span class="nc" id="L33">            6 -&gt; addProductToWishlist()</span>
+<span class="nc" id="L34">            7 -&gt; updateProductInfoInWishlists()</span>
+<span class="nc" id="L35">            8 -&gt; deleteAProuduct()</span>
+<span class="nc" id="L36">            9 -&gt; labelProductStatus()</span>
+<span class="nc" id="L37">            10 -&gt; searchWishlist()</span>
+            // 11 -&gt; sortNotes()
+<span class="nc" id="L39">            11 -&gt; categoryWishlists()</span>
+<span class="nc" id="L40">            15 -&gt; searchProducts()</span>
+
+<span class="nc" id="L42">            20 -&gt; saveWishlist()</span>
+<span class="nc" id="L43">            21 -&gt; loadWishlist()</span>
+<span class="nc" id="L44">            0 -&gt; exitApp()</span>
+<span class="nc" id="L45">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
+        }
+<span class="nc" id="L47">    } while (true)</span>
+}
+
+fun mainMenu(): Int {
+<span class="nc" id="L51">    return readNextInt(</span>
+        &quot;&quot;&quot; 
+         &gt; -------------------------------------------------------
+         &gt; |                 SHOPPING WISHLIST APP                |
+         &gt; -------------------------------------------------------
+         &gt; | WISHLIST MENU                                        |
+         &gt; |   1) Add a wishlists                                 |
+         &gt; |   2) List wishlists                                  |
+         &gt; |   3) Update a wishlist                               |
+         &gt; |   4) Delete a wishlist                               |
+         &gt; |   5) Archive a wishlist                              |
+         &gt; -------------------------------------------------------
+         &gt; | PRODUCT MENU                                         | 
+         &gt; |   6) Add product to wishlist                         |
+         &gt; |   7) Update product material on a wishlist           |
+         &gt; |   8) Delete product from a wishlist                  |
+         &gt; |   9) Label product as favourite                      | 
+         &gt; --------------------------------------------------------  
+         &gt; | REPORT MENU FOR WISHLISTS                            | 
+         &gt; |   10) Search for all wishlists (by wishlist name)    |
+         &gt; |   11) Number of wishlists by category                |
+         &gt; |   12) .....                                          |
+         &gt; |   13) .....                                          |
+         &gt; |   14) .....                                          |
+         &gt; ----------------------------------------------------- -- 
+         &gt; | REPORT MENU FOR PRODUCT                              |                                
+         &gt; |   15) Search for all product (by product description)|
+         &gt; |   16) List Favourite Products                        |
+         &gt; |   17) .....                                          |
+         &gt; |   18) .....                                          |
+         &gt; |   19) .....                                          |
+         &gt; --------------------------------------------------------
+         &gt; |   SAVE AND LOAD OPTIONS                              |
+         &gt; |   20) Save Wishlists                                 |
+         &gt; |   21) Load Wishlists                                 |
+         &gt; --------------------------------------------------------  
+         &gt; |   0) Exit                                            |
+         &gt; ---------------------------------------------------------  
+<span class="nc" id="L89">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+    )
+}
+
+fun addWishlistInput(): Wishlist? {
+<span class="nc" id="L94">    val wishlistName = readNextLine(&quot;Enter a name for the wishlist: &quot;)</span>
+<span class="nc" id="L95">    val wishlistUserName = readNextLine(&quot;Enter the name of the person whom the wishlist belongs to: &quot;)</span>
+<span class="nc" id="L96">    val wishlistPriority = readNextInt(&quot;Enter a priority (1-low, 2, 3, 4, 5-high): &quot;)</span>
+
+    // Validate user input
+<span class="nc bnc" id="L99" title="All 6 branches missed.">    if (wishlistPriority !in 1..10) {</span>
+<span class="nc" id="L100">        println(&quot;Invalid wishlist priority. Please enter a number between 1 and 5.&quot;)</span>
+<span class="nc" id="L101">        return null</span>
+    }
+
+<span class="nc" id="L104">    val wishlistCategory = readNextLine(&quot;Enter a category for the wishlist: &quot;)</span>
+<span class="nc" id="L105">    val wishlistDate = LocalDate.now()</span>
+
+<span class="nc" id="L107">    return Wishlist(wishlistName, wishlistDate, wishlistUserName, wishlistCategory, wishlistPriority, false)</span>
+}
+
+fun addWishList() {
+    // logger.info { &quot;addWishList() function invoked&quot; }
+<span class="nc" id="L112">    val wishlist = addWishlistInput()</span>
+
+<span class="nc bnc" id="L114" title="All 2 branches missed.">    if (wishlist != null) {</span>
+<span class="nc" id="L115">        try {</span>
+<span class="nc" id="L116">            val isAdded = wishlistAPI.add(wishlist)</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">            if (isAdded) {</span>
+<span class="nc" id="L118">                println(&quot;Wishlist added successfully.&quot;)</span>
+            } else {
+<span class="nc" id="L120">                println(&quot;Failed to add wishlist.&quot;)</span>
+            }
+<span class="nc" id="L122">        } catch (e: Exception) {</span>
+<span class="nc" id="L123">            println(&quot;An error occurred while adding wishlist: ${e.message}&quot;)</span>
+        }
+    }
+<span class="nc" id="L126">}</span>
+
+fun listWishlists() {
+<span class="nc bnc" id="L129" title="All 2 branches missed.">    if (wishlistAPI.numberOfWishlists() &gt; 0) {</span>
+<span class="nc" id="L130">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) View ALL wishlists        |
+                  &gt; |   2) View ACTIVE wishslists    |
+                  &gt; |   3) View ARCHIVED wishslists  |
+                  &gt; --------------------------------
+<span class="nc" id="L137">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L140" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L141">            1 -&gt; listAllWishlists()</span>
+<span class="nc" id="L142">            2 -&gt; listActiveWishlists()</span>
+<span class="nc" id="L143">            3 -&gt; listArchivedWishlists()</span>
+<span class="nc" id="L144">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L147">        println(&quot;Option Invalid - No wishlists stored&quot;)</span>
+    }
+<span class="nc" id="L149">}</span>
+
+fun archiveWishlist() {
+<span class="nc" id="L152">    listActiveWishlists()</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">    if (wishlistAPI.numberOfActiveWishlits() &gt; 0) {</span>
+<span class="nc" id="L154">        val indexToArchive = readNextInt(&quot;Enter the index of the wishlist to archive: &quot;)</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (wishlistAPI.archiveWishlist(indexToArchive)) {</span>
+<span class="nc" id="L156">            println(&quot;Archive Successful!&quot;)</span>
+        } else {
+<span class="nc" id="L158">            println(&quot;Archive NOT Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L161">}</span>
+
+fun listActiveWishlists() {
+<span class="nc" id="L164">    println(wishlistAPI.listActiveWishlists())</span>
+<span class="nc" id="L165">}</span>
+
+fun listAllWishlists() {
+<span class="nc" id="L168">    println(wishlistAPI.listAllWishlists())</span>
+<span class="nc" id="L169">}</span>
+
+fun listArchivedWishlists() {
+<span class="nc" id="L172">    println(wishlistAPI.listArchivedWishlists())</span>
+<span class="nc" id="L173">}</span>
+
+fun updateWishList() {
+//    logger.info { &quot;upadteWlishList() function invoked&quot; }
+<span class="nc" id="L177">    listWishlists()</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">    if (wishlistAPI.numberOfWishlists() &gt; 0) {</span>
+<span class="nc" id="L179">        val indxeToUpdate = readNextInt(&quot;Enter the index of the wishlist to update: &quot;)</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        if (wishlistAPI.isValidIndex(indxeToUpdate)) {</span>
+<span class="nc" id="L181">            val wishlistName = readNextLine(&quot;Enter a name for the wishlist: &quot;)</span>
+<span class="nc" id="L182">            val wishlistUserName = readNextLine(&quot;Enter the person the wishlist belongs to: &quot;)</span>
+<span class="nc" id="L183">            val wishlistPriority = readNextInt(&quot;Enter a priority(1-low, 2,3,4, 5-high): &quot;)</span>
+<span class="nc" id="L184">            val wishlistCategory = readNextLine(&quot;Enter a category for the wishlist: &quot;)</span>
+<span class="nc" id="L185">            val wishlistDate = LocalDate.now()</span>
+
+<span class="nc bnc" id="L187" title="All 2 branches missed.">            if (wishlistAPI.updateWishlist(</span>
+<span class="nc" id="L188">                    indxeToUpdate,</span>
+<span class="nc" id="L189">                    Wishlist(</span>
+<span class="nc" id="L190">                            wishlistName,</span>
+<span class="nc" id="L191">                            wishlistDate,</span>
+<span class="nc" id="L192">                            wishlistUserName,</span>
+<span class="nc" id="L193">                            wishlistCategory,</span>
+<span class="nc" id="L194">                            wishlistPriority,</span>
+<span class="nc" id="L195">                            false</span>
+                        )
+                )
+            ) {
+<span class="nc" id="L199">                println(&quot;Update Successful&quot;)</span>
+            } else {
+<span class="nc" id="L201">                println(&quot;Update Failed&quot;)</span>
+            }
+        } else {
+<span class="nc" id="L204">            println(&quot;There is no wishlists for this index number&quot;)</span>
+        }
+    }
+<span class="nc" id="L207">}</span>
+
+fun deleteWishlist() {
+    // logger.info { &quot;deleteNotes() function invoked&quot; }
+<span class="nc" id="L211">    listWishlists()</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">    if (wishlistAPI.numberOfWishlists() &gt; 0) {</span>
+        // only ask the user to choose the note to delete if notes exist
+<span class="nc" id="L214">        val indexToDelete = readNextInt(&quot;Enter the index of the wishlist to delete: &quot;)</span>
+        // pass the index of the note to NoteAPI for deleting and check for success.
+<span class="nc" id="L216">        val wishlistToDelete = wishlistAPI.deleteWishlist(indexToDelete)</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (wishlistToDelete != null) {</span>
+<span class="nc" id="L218">            println(&quot;Delete Successful! Deleted wishlist: ${wishlistToDelete.wishlistName}&quot;)</span>
+        } else {
+<span class="nc" id="L220">            println(&quot;Delete NOT Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L223">}</span>
+
+fun searchWishlist() {
+<span class="nc" id="L226">    val searchName = readNextLine(&quot;Enter the description to search by: &quot;)</span>
+<span class="nc" id="L227">    val searchResults = wishlistAPI.searchByName(searchName)</span>
+<span class="nc bnc" id="L228" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L229">        println(&quot;No wishlists found&quot;)</span>
+    } else
+<span class="nc" id="L231">        println(searchResults)</span>
+<span class="nc" id="L232">}</span>
+
+fun categoryWishlists() {
+<span class="nc" id="L235">    println(wishlistAPI.countWishlistsOfaSpecificCategory(readNextLine(&quot;Enter category to see how many there is: &quot;)))</span>
+<span class="nc" id="L236">}</span>
+
+fun sortNotes() {
+<span class="nc" id="L239">    TODO(&quot;Not yet implemented&quot;)</span>
+}
+
+fun addProductToWishlist() {
+<span class="nc" id="L243">    val wishlist: Wishlist? = askUserToChooseActiveWishlist()</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">    if (wishlist != null) {</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        if (wishlist.addProduct(</span>
+<span class="nc" id="L246">                Product(</span>
+<span class="nc" id="L247">                        productName = readNextLine(&quot;\t Product Name: &quot;),</span>
+<span class="nc" id="L248">                        productDescription = readNextLine(&quot;\t Product Description: &quot;),</span>
+<span class="nc" id="L249">                        productPrice = readNextDouble(&quot;\t Product Price: &quot;),</span>
+<span class="nc" id="L250">                        productType = readNextLine(&quot;\t Product Type: &quot;),</span>
+<span class="nc" id="L251">                        productBrand = readNextLine(&quot;\t Product Brand: &quot;),</span>
+<span class="nc" id="L252">                        productId = readNextInt(&quot;\t Product ID: &quot;),</span>
+<span class="nc" id="L253">                        productQuantity = readNextInt(&quot;\t Product Quantity: &quot;)</span>
+                    )
+            )
+        )
+<span class="nc" id="L257">            println(&quot;Add Successful!&quot;)</span>
+<span class="nc" id="L258">        else println(&quot;Add NOT Successful&quot;)</span>
+    }
+<span class="nc" id="L260">}</span>
+
+fun updateProductInfoInWishlists() {
+<span class="nc" id="L263">    val wishlist: Wishlist? = askUserToChooseActiveWishlist()</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">    if (wishlist != null) {</span>
+<span class="nc" id="L265">        val product: Product? = askUserToChooseProduct(wishlist)</span>
+        if (wishlist != null) {
+
+<span class="nc bnc" id="L268" title="All 2 branches missed.">            if (product != null) {</span>
+<span class="nc" id="L269">                val newName = readNextLine(&quot;Enter new Name: &quot;)</span>
+<span class="nc" id="L270">                val newDescription = readNextLine(&quot;Enter the new Description: &quot;)</span>
+<span class="nc" id="L271">                val resp = readNextChar(&quot;is this a favourite  y or n: &quot;)</span>
+<span class="nc" id="L272">                var respBoolean = false</span>
+<span class="nc bnc" id="L273" title="All 2 branches missed.">                if (resp == 'y')</span>
+<span class="nc" id="L274">                    respBoolean = true</span>
+
+<span class="nc bnc" id="L276" title="All 2 branches missed.">                if (wishlist.update(</span>
+<span class="nc" id="L277">                        product.productId,</span>
+<span class="nc" id="L278">                        Product(</span>
+<span class="nc" id="L279">                                productName = newName,</span>
+<span class="nc" id="L280">                                productDescription = newDescription,</span>
+<span class="nc" id="L281">                                isProductFavourite = respBoolean</span>
+                            )
+                    )
+                ) {
+<span class="nc" id="L285">                    println(&quot;Product Info  updated&quot;)</span>
+                } else {
+<span class="nc" id="L287">                    println(&quot;Product Info NOT updated&quot;)</span>
+                }
+            }
+        } else {
+            println(&quot;Invalid Product Id&quot;)
+        }
+    }
+<span class="nc" id="L294">}</span>
+
+fun askUserToChooseProduct(wishlist: Wishlist): Product? {
+<span class="nc" id="L297">    println(wishlist.listProducts())</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">    if (wishlist.numberOfProducts() &gt; 0) {</span>
+
+<span class="nc" id="L300">        val indexProduct = readNextInt(&quot;Enter the id of the product: &quot;)</span>
+
+<span class="nc" id="L302">        return wishlist.findOne(indexProduct)</span>
+    }
+
+<span class="nc" id="L305">    return null</span>
+}
+
+fun askUserToChooseActiveWishlist(): Wishlist? {
+    // show the list of Wish
+    // ask them to chose one
+<span class="nc" id="L311">    listWishlists()</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">    if (wishlistAPI.numberOfWishlists() &gt; 0) {</span>
+<span class="nc" id="L313">        val indxeToSee = readNextInt(&quot;Enter the index of the wishlist to see: &quot;)</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">        if (wishlistAPI.isValidIndex(indxeToSee)) {</span>
+<span class="nc" id="L315">            return wishlistAPI.findWishlist(indxeToSee)</span>
+        }
+    }
+<span class="nc" id="L318">    return null</span>
+}
+
+fun deleteAProuduct() {
+<span class="nc" id="L322">    val wishlist: Wishlist? = askUserToChooseActiveWishlist()</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">    if (wishlist != null) {</span>
+<span class="nc" id="L324">        val product: Product? = askUserToChooseProduct(wishlist)</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">        if (product != null) {</span>
+<span class="nc" id="L326">            val isDeleted = wishlist.delete(product.productId)</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">            if (isDeleted) {</span>
+<span class="nc" id="L328">                println(&quot;Delete Successful!&quot;)</span>
+            } else {
+<span class="nc" id="L330">                println(&quot;Delete Not Successful!&quot;)</span>
+            }
+        }
+    }
+<span class="nc" id="L334">}</span>
+
+fun labelProductStatus() {
+<span class="nc" id="L337">    val wishlist: Wishlist? = askUserToChooseActiveWishlist()</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">    if (wishlist != null) {</span>
+<span class="nc" id="L339">        val product: Product? = askUserToChooseProduct(wishlist)</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (product != null) {</span>
+<span class="nc" id="L341">            var changeStatus = 'A'</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">            if (!product.isProductFavourite) {</span>
+                // make it a fav
+<span class="nc" id="L344">                product.isProductFavourite = true</span>
+<span class="nc" id="L345">                println(&quot;Statues Update Successful&quot;)</span>
+                // tell the user its now a fav
+            }
+            // else tell them already a favout
+<span class="nc" id="L349">            else println(&quot;Statues Update Not Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L352">}</span>
+
+fun searchProducts() {
+<span class="nc" id="L355">    val searchInfos = readNextLine(&quot;Enter the item Information to search by: &quot;)</span>
+<span class="nc" id="L356">    val searchResults = wishlistAPI.searchProductByInfos(searchInfos)</span>
+<span class="nc bnc" id="L357" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L358">        println(&quot;No products Located&quot;)</span>
+    } else {
+<span class="nc" id="L360">        println(searchResults)</span>
+    }
+<span class="nc" id="L362">}</span>
+
+fun loadWishlist() {
+<span class="nc" id="L365">    try {</span>
+<span class="nc" id="L366">        wishlistAPI.load()</span>
+<span class="nc" id="L367">    } catch (e: Exception) {</span>
+<span class="nc" id="L368">        System.err.println(&quot;Error reading  from file: $e&quot;)</span>
+    }
+<span class="nc" id="L370">}</span>
+
+fun saveWishlist() {
+<span class="nc" id="L373">    try {</span>
+<span class="nc" id="L374">        wishlistAPI.store()</span>
+<span class="nc" id="L375">    } catch (e: Exception) {</span>
+<span class="nc" id="L376">        System.err.println(&quot;Error reading  from file: $e&quot;)</span>
+    }
+<span class="nc" id="L378">}</span>
+
+fun exitApp() {
+<span class="nc" id="L381">    println(&quot;Exiting...bye&quot;)</span>
+<span class="nc" id="L382">    exit(0)</span>
+<span class="nc" id="L383">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
